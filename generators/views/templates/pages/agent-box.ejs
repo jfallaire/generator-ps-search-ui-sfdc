@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    
+    <script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="js/CoveoJsSearch.js"></script>
+    <script src="js/components.js"></script>
+    
+    <script src="js/CoveoJsSearch_Box.js"></script>
+    <script src="js/box.new.templates.js"></script>
+    
+    <link rel="stylesheet" href="css/CoveoFullSearchNewDesign.css" />
+    <link rel="stylesheet" href="css/CoveoBoxNew.css" />
+
+    <script>
+        Coveo.Salesforce.fullPageUri = 'http://ces.corp.coveo.com/js'
+
+        Coveo.context = Coveo.Salesforce.record = {
+            "assetid": null,
+            "lastmodifiedbyid": "005i0000001PxLvAAK",
+            "user__userid": "005i0000001PxLvAAK",
+            "suppliedname": null,
+            "user__lastname": "Bar",
+            "engineeringreqnumber__c": "765876",
+            "casenumber": "00001000",
+            "lastvieweddate": "2014-12-08T18:40:29.000Z",
+            "ownerid": "005i0000001PxLvAAK",
+            "createddate": "2013-10-28T14:33:44.000Z",
+            "user__usertype": "Standard",
+            "product__c": "GC5040",
+            "origin": "Phone",
+            "user__firstname": "Foo",
+            "hascommentsunreadbyowner": false,
+            "suppliedphone": null,
+            "user__username": "foo@bar.com",
+            "isescalated": false,
+            "status": "Closed",
+            "user__userroleid": null,
+            "potentialliability__c": "No",
+            "user__name": "Foo Bar",
+            "accountid": "001i000000SYuLdAAL",
+            "suppliedcompany": null,
+            "systemmodstamp": "2013-10-28T14:33:44.000Z",
+            "user__language": "en_US",
+            "isdeleted": false,
+            "priority": "High",
+            "description": null,
+            "user__profile": "00ei00000019garAAA",
+            "user__useremail": "foo@bar.com",
+            "id": "500i0000004BhTYAA0",
+            "lastmodifieddate": "2013-10-28T14:33:44.000Z",
+            "createdbyid": "005i0000001PxLvAAK",
+            "contactid": "003i000000PDWasAAH",
+            "type": "Electrical",
+            "closeddate": "2012-09-09T18:59:51.000Z",
+            "suppliedemail": null,
+            "parentid": null,
+            "slaviolation__c": "No",
+            "hasselfservicecomments": false,
+            "subject": "Starting generator after electrical failure it's nice",
+            "reason": "Equipment Complexity",
+            "isclosed": true,
+            "user__locale": "en_CA"
+        }
+
+        Coveo.Salesforce.fieldLabels = {
+            "AssetId": "Asset ID",
+            "SuppliedCompany": "Company",
+            "Id": "Case ID",
+            "ContactId": "Contact ID",
+            "IsDeleted": "Deleted",
+            "HasCommentsUnreadByOwner": "New Self-Service Comment",
+            "CreatedDate": "Created Date",
+            "CreatedById": "Created By ID",
+            "AccountId": "Account ID",
+            "SuppliedEmail": "Email Address",
+            "foobar__PotentialLiability__c": "Potential Liability",
+            "Status": "Status",
+            "Priority": "Priority",
+            "ClosedDate": "Closed Date",
+            "Subject": "Subject",
+            "LastModifiedById": "Last Modified By ID",
+            "Description": "Description",
+            "Reason": "Case Reason",
+            "CaseNumber": "Case Number",
+            "foobar__EngineeringReqNumber__c": "Engineering Req Number",
+            "foobar__Product__c": "Product",
+            "SystemModstamp": "System Modstamp",
+            "foobar__SLAViolation__c": "SLA Violation",
+            "IsClosed": "Closed",
+            "IsEscalated": "Escalated",
+            "HasSelfServiceComments": "Self-Service Commented",
+            "SuppliedName": "Name",
+            "Origin": "Case Origin",
+            "SuppliedPhone": "Phone",
+            "LastModifiedDate": "Last Modified Date",
+            "OwnerId": "Owner ID",
+            "Type": "Case Type",
+            "ParentId": "Parent Case ID"
+        }
+
+        Coveo.Salesforce.coveoFieldNames = [
+            "@sfemaildomainnames",
+            "@concepts",
+            "@from",
+            "@participants",
+            "@sfaccount",
+            "@sfamountconverted",
+            "@sfcasenumber",
+            "@sfclosequarter",
+            "@sfcountry",
+            "@sfindustry",
+            "@sfshippingcity",
+            "@sfshippingstate",
+            "@sfstagename",
+            "@sfstatus",
+            "@title",
+            "@workemail",
+            "@uri"
+        ]
+
+        Coveo.Salesforce.extensions = [{
+            "name": "join",
+            "argumentNames": ["fromResultSet", "toResultSet", "fromField", "toField", "field",
+                "fromAggregateConditions", "maximumValues"
+            ]
+        }, {
+            "name": "sum",
+            "argumentNames": ["resultSet", "field"]
+        }, {
+            "name": "aggregate",
+            "argumentNames": ["resultSet", "field", "operation"]
+        }, {
+            "name": "average",
+            "argumentNames": ["resultSet", "field"]
+        }, {
+            "name": "minimum",
+            "argumentNames": ["resultSet", "field"]
+        }, {
+            "name": "maximum",
+            "argumentNames": ["resultSet", "field"]
+        }, {
+            "name": "queryRankingExpression",
+            "argumentNames": ["expression", "modifier"]
+        }, {
+            "name": "resultsOfType",
+            "argumentNames": ["name"]
+        }, {
+            "name": "valuesOfField",
+            "argumentNames": ["resultSet", "field", "aggregateConditions", "maximum", "sortOrder"]
+        }, {
+            "name": "keepMatchingValues",
+            "argumentNames": ["regex", "values"]
+        }, {
+            "name": "removeMatchingValues",
+            "argumentNames": ["regex", "values"]
+        }, {
+            "name": "removeEmptyValues",
+            "argumentNames": ["values"]
+        }, {
+            "name": "removeDuplicateValues",
+            "argumentNames": ["values"]
+        }, {
+            "name": "replaceInValues",
+            "argumentNames": ["regex", "replacement", "values", "removeNonMatchingValues", "removeEmptyValues",
+                "removeDuplicateValues"
+            ]
+        }, {
+            "name": "mergeValues",
+            "argumentNames": ["first", "second"]
+        }, {
+            "name": "valuesToResultSet",
+            "argumentNames": ["values", "field"]
+        }, {
+            "name": "joinOnValues",
+            "argumentNames": ["resultSet", "field", "values"]
+        }, {
+            "name": "filterJoin",
+            "argumentNames": ["localResultSet", "externalResultSet", "localField", "externalField", "field",
+                "aggregateConditions", "maximumValues"
+            ]
+        }, {
+            "name": "correlateListOfValues",
+            "argumentNames": ["values", "field", "modifier", "useFullText", "forceOneMatch"]
+        }, {
+            "name": "correlateResultSet",
+            "argumentNames": ["resultSet", "fromField", "toField", "field", "maximumValues", "sortOrder",
+                "modifier", "useFullText", "forceOneMatch"
+            ]
+        }, {
+            "name": "correlateUsingIdf",
+            "argumentNames": ["keywords", "forceOneMatch"]
+        }, {
+            "name": "extractEmailAddresses",
+            "argumentNames": ["values"]
+        }, {
+            "name": "extractEmailDomains",
+            "argumentNames": ["values"]
+        }, {
+            "name": "emailsExchangedWithThoseAddresses",
+            "argumentNames": ["addresses"]
+        }, {
+            "name": "participantsForThoseEmails",
+            "argumentNames": ["emails", "sortBy", "maximum"]
+        }, {
+            "name": "personsWithThoseEmailAddresses",
+            "argumentNames": ["addresses"]
+        }, {
+            "name": "SalesforceCase_SimilarCases",
+            "argumentNames": ["caseNumber", "subject"]
+        }, {
+            "name": "SalesforceCase_SimilarCases_ProductFamily",
+            "argumentNames": ["caseNumber", "subject", "productFamily"]
+        }, {
+            "name": "SalesforceCase_RelatedSolutions",
+            "argumentNames": ["caseNumber", "subject"]
+        }, {
+            "name": "SalesforceCase_RelatedProblems",
+            "argumentNames": ["caseNumber", "subject"]
+        }, {
+            "name": "SalesforceCase_RelatedExperts",
+            "argumentNames": ["caseNumber", "subject"]
+        }, {
+            "name": "SalesforceCase_SimilarCasesByExpert",
+            "argumentNames": ["caseNumber", "subject", "expert"]
+        }, {
+            "name": "itemsRelatedToCase",
+            "argumentNames": ["caseNumber", "subject"]
+        }, {
+            "name": "itemsRelatedToCaseWithProductFamily",
+            "argumentNames": ["caseNumber", "subject", "productFamily"]
+        }, {
+            "name": "documentsWithSimilarConcepts",
+            "argumentNames": ["resultSet"]
+        }];
+
+        Coveo.Salesforce.type = 'case';
+        Coveo.Salesforce.knowledgeArticleInfos = {
+            types: [{
+                    type: "help_and_training__kav",
+                    label: "Help & Training"
+                },
+                {
+                    type: "documentation__kav",
+                    label: "Documentation"
+                }
+            ],
+            isKnowledgeEnabled: true
+        }
+
+        $(function () {
+            Coveo.SearchEndpoint.configureSampleEndpoint();
+            $('.CoveoBox').coveo('initBox')
+        })
+
+        Coveo.BoxCreateArticle = {};
+    </script>
+</head>
+
+<body>
+    <div class='CoveoBox' data-enable-history='true'>
+        <div class="CoveoBoxHeader" data-enable-search-as-you-type="false" data-enable-omnibox="true">
+            <div class='coveo-box-popups-section'>
+                <div class="coveo-tab-section coveo-inline-tab-section">
+                    <a class="CoveoTab" data-id="All" data-caption="All Content"></a>
+                    <a class="CoveoTab" data-id="Salesforce" data-caption="Salesforce" data-expression="@sfid"></a>
+                    <a class="CoveoTab" data-id="SalesforceCase" data-caption="Cases" data-expression="@sfcaseid"></a>
+                    <a class="CoveoAttachedResultsTab" data-id="AttachedResults" data-caption="Attached results"></a>
+                </div>
+                <div class="coveo-box-settings">
+                    <a class='CoveoBoxExpandLink' target="_blank" data-uri="#"></a>
+                    <a class='CoveoBoxEditLink' target="_top" data-uri="#"></a>
+                    <a class='CoveoBoxCreateArticle' target="_blank" data-hidden="false"></a>
+                </div>
+                <div class="CoveoBoxQuerySummary"></div>
+            </div>
+        </div>
+        <div class='CoveoBoxBody'></div>
+    </div>
+</body>
+
+</html>

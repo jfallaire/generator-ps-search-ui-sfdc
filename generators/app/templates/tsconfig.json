@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "declaration": false,
+    "experimentalDecorators": true,
+    "outDir": "./bin"
+  },
+  "filesGlob": [
+    "src/**/*.ts"
+  ],
+  "files": [
+    "node_modules/coveo-search-ui/bin/ts/CoveoJsSearch.d.ts",
+    "node_modules/coveo-search-ui/bin/ts/Externals.d.ts",
+    "src/Index.ts",
+    "src/custo/<%= capitalizeCustomerSafeName %>Initialization.ts",
+    "src/custo/<%= capitalizeCustomerSafeName %>Custo.ts",
+    "src/custo/<%= capitalizeCustomerSafeName %>Helper.ts"
+  ]
+}
