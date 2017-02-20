@@ -13,7 +13,7 @@ _.each(cfg.<%= customerSafeName %>.webpack_config, (wc, key) => {
     (isWindows ? 'set ' : '') + 'CUSTOM_BUNDLE=' + key,
     'node node_modules/webpack/bin/webpack.js'
   ]
-  compileAllTasks.push(tasks.join(' && '));
+  compileAllTasks.push(tasks.join((isWindows ? '&&' : ' && ')));
 });
 
 gulp.task('compile', ['addEolDependencies'], shell.task([
