@@ -7,6 +7,8 @@
     "url": "https://github.com/jfallaire/generator-ps-search-ui-sfdc.git"
   },
   "files": [
+    "generators",
+    "utils",
     "app",
     "config",
     "typescript",
