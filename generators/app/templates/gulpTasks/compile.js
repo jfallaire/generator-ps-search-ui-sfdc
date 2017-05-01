@@ -21,7 +21,7 @@ gulp.task('compile', ['addEolDependencies'], shell.task([
   (isWindows ? 'set ' : '') + 'NODE_ENV=' + process.env.NODE_ENV, 
   (isWindows ? 'set ' : '') + 'CUSTOM_BUNDLE=' + process.env.CUSTOM_BUNDLE, 
   'node node_modules/webpack/bin/webpack.js'
-]));
+].join((isWindows ? '&&' : ' && '))));
 
 gulp.task('minimize', ['addEolDependencies'], shell.task([
   'node node_modules/webpack/bin/webpack.js --minimize'
