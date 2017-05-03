@@ -17,7 +17,7 @@ module.exports = class extends Generator {
     initializing() {
         this.props = {};
         this.props.customerName = this.options.customer;
-        this.props.customerSafeName = _.kebabCase(this.options.customer);
+        this.props.customerSafeName = _.snakeCase(this.options.customer);
     }
 
     writing() {

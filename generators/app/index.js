@@ -31,7 +31,7 @@ module.exports = class extends Generator {
         return this.prompt(prompts).then(function (props) {
           this.props = props;
           this.props.repoName = utils.makeRepoName(this.props.customer);
-          this.props.customerSafeName = _.kebabCase(this.props.customer);
+          this.props.customerSafeName = _.snakeCase(this.props.customer);
         }.bind(this));
         
     }
