@@ -7,6 +7,8 @@ config.hostname = 'dev.example.com';
 config.server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 config.server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
+config.iow_path = '';
+
 // coveo
 config.coveo = {};
 config.coveo.cloud_platform_uri = 'https://cloudplatform.coveo.com/rest';

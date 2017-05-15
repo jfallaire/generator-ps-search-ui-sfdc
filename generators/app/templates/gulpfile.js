@@ -1,10 +1,14 @@
 const gulp = require('gulp');
+const gutil = require('gulp-util');
+
+process.env.NODE_ENV = gutil.env.config || 'development';
+process.env.CUSTOM_BUNDLE = gutil.env.bundle || 'support';
+
 const rename = require('gulp-rename');
 const requireDir = require('require-dir');
 const rmdir = require('gulp-rimraf');
 const zip = require('gulp-zip');
 const streamify = require('gulp-streamify');
-const gutil = require('gulp-util');
 const livereload = require('gulp-livereload');
 const runsequence = require('run-sequence');
 const colors = require('colors');
@@ -13,9 +17,6 @@ const cfg = require('./config');
 const _ = require('underscore');
 
 var bundles = _.map(cfg.<%=customerSafeName%>.webpack_config, (v, k) => k);
-
-process.env.NODE_ENV = gutil.env.config || 'development';
-process.env.CUSTOM_BUNDLE = gutil.env.bundle || 'support';
 
 var bannerMsg = minimize ? 'Building minified version' : 'Building non minified version';
 

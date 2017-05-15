@@ -17,30 +17,15 @@ gulp.task('dev', ['css', 'setup', 'watch'], function (done){
     server.set('view engine', 'ejs');
 
     server.use(express.static(path.resolve('./bin')));
+    if(cfg.iow_path){
+        server.use('/iow', express.static(path.resolve(cfg.iow_path)));
+    }
+    server.use(express.static(path.resolve('./bin')));
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
 
-    // Search page
-    server.get('/community-search', function(req, res) {
-        res.render('pages/community-search', { 
-            prototypeTitle : 'Community Search Prototype',
-            config: cfg });
-    });
-
-    server.get('/agent-box', function(req, res) {
-        res.render('pages/agent-box', { 
-            prototypeTitle : 'Agent Insight Panel',
-            config: cfg
-        });
-    });
-
-    server.get('/agent-full-search', function(req, res) {
-        res.render('pages/agent-full-search', { 
-            prototypeTitle : 'Agent Full Search',
-            config: cfg
-        });
-    });
-
+    server.use(require('../routes/pages'));
+    
     server.listen(cfg.server_port, cfg.server_ip_address, function () {
         console.log( 'Listening on ' + cfg.server_ip_address + ', port ' + cfg.server_port )
     });

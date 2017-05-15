@@ -69,6 +69,10 @@ module.exports = class extends Generator {
           customer: this.props.customer
         });
 
+        this.composeWith(require.resolve('../routes'), {
+          customer: this.props.customer
+        });
+
         this.composeWith(require.resolve('../vendor'), {
           customer: this.props.customer
         });
