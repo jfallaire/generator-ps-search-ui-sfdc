@@ -1,5 +1,6 @@
 # generator-ps-search-ui-sfdc
 
+[![Build Status](https://travis-ci.org/jfallaire/generator-ps-search-ui-sfdc.svg?branch=master)](https://travis-ci.org/jfallaire/generator-ps-search-ui-sfdc) [![npm version](https://badge.fury.io/js/generator-ps-search-ui-sfdc.svg)](https://badge.fury.io/js/generator-ps-search-ui-sfdc)
 
 > ps-search-ui-sfdc generator generating a nodejs module as development environment to interact with the Coveo JS Search UI framework
 
