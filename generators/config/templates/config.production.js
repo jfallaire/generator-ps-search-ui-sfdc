@@ -5,6 +5,6 @@ config.env = 'production';
 //Coveo
 config.coveo.api_key = '';
 config.coveo.org_id = '';
-config.coveo.filter = '';
+config.coveo.filter = process.env.FILTER_EXPRESSION || '';
 
 module.exports = config;

@@ -3,12 +3,17 @@ const gutil = require('gulp-util');
 
 process.env.NODE_ENV = gutil.env.config || 'development';
 process.env.CUSTOM_BUNDLE = gutil.env.bundle || 'support';
+process.env.IMPERSONATE_USER = gutil.env.impersonateUser || '';
+process.env.ADDITIONAL_USER = gutil.env.additionalUser || '';
+process.env.FILTER_EXPRESSION = gutil.env.filterExpression || '';
 
 const rename = require('gulp-rename');
 const requireDir = require('require-dir');
 const rmdir = require('gulp-rimraf');
 const zip = require('gulp-zip');
 const streamify = require('gulp-streamify');
+const gulpif = require('gulp-if');
+const prompt = require('gulp-prompt');
 const livereload = require('gulp-livereload');
 const runsequence = require('run-sequence');
 const colors = require('colors');
