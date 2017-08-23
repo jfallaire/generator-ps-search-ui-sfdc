@@ -1,0 +1,18 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller='Coveo_CommunitySearch'>
+    <ltng:require styles=”{! $Resource.staticResourceFileName}”/>
+
+	<CoveoV2:Search aura:id="Coveo_CommunitySearch" 
+                    name="{!v.name}" 
+                    GetSearchToken="{!c.generateSearchToken}"
+                    autoInitialize="{!v.autoInitialize}"
+                    autoInjectBasicQuery="{!v.autoInjectBasicQuery}"
+                    debug="{!v.debug}"
+                    autoInjectBasicOptions="{!v.autoInjectBasicOptions}"
+                    searchHub="{!v.searchHub}"/>
+    <aura:attribute name="name" type="String" default="" access="global" />
+    <aura:attribute name="autoInitialize" type="Boolean" default="true" access="global" />
+    <aura:attribute name="autoInjectBasicQuery" type="Boolean" default="true" access="global" />
+    <aura:attribute name="debug" type="Boolean" default="false" access="global" />
+    <aura:attribute name="autoInjectBasicOptions" type="Boolean" default="true" access="global" />
+    <aura:attribute name="searchHub" type="String" default="" access="global" />
+</aura:component>

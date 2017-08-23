@@ -1,0 +1,8 @@
+<design:component label="Coveo_CommunitySearch">
+    <design:attribute name="name" label="Name" />
+    <design:attribute name="autoInitialize" label="Auto Initialize" />
+    <design:attribute name="autoInjectBasicQuery" label="Auto Inject Basic Query" />
+    <design:attribute name="autoInjectBasicOptions" label="Auto Inject Basic Options" />
+    <design:attribute name="debug" label="Debug" />
+    <design:attribute name="searchHub" label="Search Hub" />
+</design:component>
