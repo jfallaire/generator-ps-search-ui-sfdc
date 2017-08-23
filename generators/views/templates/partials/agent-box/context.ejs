@@ -1,0 +1,61 @@
+<script>
+  Coveo.CustomContext = Coveo.CustomContext || {};
+
+  Coveo.CustomContext.CaseContext = {
+    casenumber: '{!JSENCODE(case.CaseNumber)}',
+    caseid: '{!JSENCODE(case.Id)}',
+    caseorigin: '{!JSENCODE(case.Origin)}',
+    casestatus: '{!JSENCODE(case.Status)}',
+    casesubject: '{!JSENCODE(case.Subject)}',
+    casedescription: '{!JSENCODE(case.Subject)}'
+  };
+
+  Coveo.CustomContext.AgentContext = {
+    agentusername: " {!$User.Username}",
+    agentfullname: " {!$User.FirstName}  {!$User.LastName}"
+  };
+
+  sforce.connection.sessionId = '{!GETSESSIONID()}';
+
+  function emailPublisherAction(dataToSend) {
+    console.log('dataToSend', dataToSend);
+
+    //Focus on Chatter post component
+    Sfdc.canvas.publisher.publish({
+      name: "publisher.selectAction",
+      payload: {
+        actionName: "Case.Email"
+      }
+    });
+
+    //Set Chatter post content
+    Sfdc.canvas.publisher.publish({
+      name: "publisher.setActionInputValues",
+      payload: {
+        actionName: "Case.Email",
+        emailFields: {
+          subject: {
+            value: dataToSend.subject
+          },
+          body: {
+            value: dataToSend.message,
+            format: 'richtext',
+            insert: true
+          }
+        }
+      }
+    });
+  };
+
+  emailAsLinkEndpoint = {
+    caseId: Coveo.CustomContext.CaseContext.caseid,
+    sendEmail: emailPublisherAction
+  };
+
+  var searchInterface = Coveo.$('#search');
+  var <%= customerSafeName %>Custo = new Coveo.<%= capitalizeCustomerSafeName %>Custo(searchInterface.get(0));
+  var <%= customerSafeName %>Options = Coveo._.extend({
+    CaseContext: Coveo.CustomContext.CaseContext
+  }, <%= customerSafeName %>Custo.getDefaultOptions());
+  searchInterface.coveo('options', <%= customerSafeName %>Options);
+</script>

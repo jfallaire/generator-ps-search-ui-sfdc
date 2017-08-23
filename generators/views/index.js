@@ -34,6 +34,6 @@ module.exports = class extends Generator {
         );
 
         mkdirp.sync(this.destinationPath('views/partials'));
-        mkdirp.sync(this.destinationPath('views/templates'));
+        mkdirp.sync(this.destinationPath('views/pages'));
     }
 }

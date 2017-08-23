@@ -1,0 +1,10 @@
+<script>
+  Coveo.CustomContext = Coveo.CustomContext || {};
+
+  var searchInterface = Coveo.$('#search');
+  var <%= customerSafeName %>Custo = new Coveo.<%= capitalizeCustomerSafeName %>Custo(searchInterface.get(0));
+  var <%= customerSafeName %>Options = Coveo._.extend({
+    CaseContext: Coveo.CustomContext.CaseContext
+  }, <%= customerSafeName %>Custo.getDefaultOptions());
+  searchInterface.coveo('options', <%= customerSafeName %>Options);
+</script>

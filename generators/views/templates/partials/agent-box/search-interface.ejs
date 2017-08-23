@@ -1,0 +1,48 @@
+<div id="search" class="CoveoBox" data-design="new">
+    <div class='CoveoAnalytics'></div>
+    <div class='coveo-box-query-section'>
+      <div class="CoveoBoxQuerySome" data-include="Subject,Description"
+        data-match="2"></div>
+    </div>
+    <div class='CoveoBoxHeader' data-enable-search-as-you-type="true" data-enable-omnibox="true" data-enable-reveal-query-suggest-addon="true"
+      data-open-sub-section-by-default="false" data-enable-wildcards="true" data-enable-question-marks="true" data-allow-non-contextual-search="true"
+      data-enable-partial-match="true" data-partial-match-keywords="3" data-search-as-you-type-delay="50" data-partial-match-threshold='35%'>
+      <div class="CoveoShareQuery">
+      </div>
+      <div class="CoveoPreferencesPanel">
+        <div class="CoveoResultsPreferences">
+        </div>
+        <div class="CoveoResultsFiltersPreferences">
+        </div>
+      </div>
+      <div class='coveo-box-popups-section'>
+        <div class='coveo-tab-section coveo-inline-tab-section'>
+          <%% include ./tabs %>
+            <div class='CoveoBoxPopup' data-hidden="true" data-full-height="true" data-full-width="true" data-title='Facets'>
+              <div class="coveo-box-facet-column">
+                <%% include ./facets %>
+              </div>
+            </div>
+            <div class='CoveoBoxPopup' data-hidden="true">
+              <div class='CoveoBoxCurrentSort'></div>
+              <div class="coveo-sort-section">
+                <%% include ./sorts %>
+              </div>
+            </div>
+        </div>
+        <div class="coveo-box-settings">
+          <a class='CoveoBoxExpandLink' target="_blank" data-uri="/apex/Coveo_AgentFullSearch" data-title="Full Search Page"></a> 
+          <a class='CoveoBoxEditLink' target="_top"></a>
+          <a class='CoveoBoxCreateArticle' target="_blank"></a>
+        </div>
+        <div class="CoveoBoxQuerySummary"></div>
+      </div>
+    </div>
+    <div class="CoveoTriggers"></div>
+    <div class="CoveoBreadcrumb"></div>
+    <div class="CoveoDidYouMean"></div>
+    <div class="CoveoErrorReport"></div>
+    <div class='CoveoBoxBody'>
+      <%% include ./results %>
+    </div>
+  </div>
