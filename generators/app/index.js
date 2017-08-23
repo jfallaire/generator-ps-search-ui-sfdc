@@ -24,7 +24,7 @@ module.exports = class extends Generator {
         var prompts = [{
           type: 'input',
           name: 'customer',
-          message: 'Your customer name?',
+          message: 'Your customer(project) name?',
           default: path.basename(process.cwd())
         }];
 
@@ -81,7 +81,9 @@ module.exports = class extends Generator {
           customer: this.props.customer
         });
         
-        
+        this.composeWith(require.resolve('../sfdc'), {
+            customer: this.props.customer
+          });
     }
 
     writing() {

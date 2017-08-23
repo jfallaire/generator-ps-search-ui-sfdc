@@ -41,13 +41,8 @@ gulp.task('build', function (done) {
   runsequence('clean', ['css', 'setup'], 'prettify', 'compile', done);
 });
 
-gulp.task('bundle', function (done) {
-  console.log((bannerMsg + ' of the library [' + process.env.CUSTOM_BUNDLE + ' bundle]').bgGreen.red);
-  runsequence('clean', ['css'], 'bundle-sfdc', done);
-});
-
 gulp.task('clean', function (done) {
-  return gulp.src(['./bin', './zip'], {
+  return gulp.src(['./bin'], {
       read: false
     })
     .pipe(rmdir());
@@ -57,18 +52,4 @@ gulp.task('watch', function () {
   livereload.listen();
   gulp.watch(['./sass/**/*'], ['css']);
   //gulp.watch(['./views/**/*'], ['prepareVFComponents', 'preparePages']);
-});
-
-gulp.task('bundle-sfdc', function (done) {
-  return gulp.src([
-      './bin/**/*.<%= capitalizeCustomerSafeName %>.*'
-    ])
-    .pipe(zip('ps-search-ui-sfdc-bundle.zip'))
-    .pipe(rename('<%= capitalizeCustomerSafeName %>_Coveo_UI.resource'))
-    .pipe(gulp.dest('./zip/'));
-});
-
-gulp.task('deploy-sfdc', function (done) {
-  return gulp.src('./zip/<%= capitalizeCustomerSafeName %>_Coveo_UI.resource')
-    .pipe(gulp.dest('../Salesforce/src/staticresources/'));
 });

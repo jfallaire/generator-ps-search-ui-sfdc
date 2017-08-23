@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "gulp",
-    "dev": "gulp dev",
-    "deploy": "gulp bundle && gulp bundle-sfdc && gulp deploy-sfdc"
+    "dev": "gulp dev"
   },
   "keywords": [
     "coveo",

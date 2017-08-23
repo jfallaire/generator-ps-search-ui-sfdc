@@ -7,32 +7,11 @@ const gutil = require('gulp-util');
 const livereload = require('gulp-livereload');
 const cfg = require('../config');
 
-gulp.task('setup', ['prepareVFComponents', 'preparePages', 'copy']);
+gulp.task('setup', ['preparePages', 'copy']);
 
-gulp.task('copy', ['copyJS', 'copyCSS', 'copyFonts', 'copyImage']);
+gulp.task('copy', ['copyVendor', 'copyJS', 'copyCSS', 'copyFonts', 'copyImage']);
 
-gulp.task('prepareStaticResources', function () {
-    gulp.src(['./bin/**/*.<%= capitalizeCustomerSafeName %>.*'])
-        .pipe(gulp.dest('./bin/sfdc/staticresources'))
-        .pipe(livereload());
-});
-
-gulp.task('prepareVFComponents', function () {
-    gulp.src(['./views/partials/agentfull-searchInterface.ejs'])
-        .pipe(ejs({}, {ext:'.html'}).on('error', gutil.log))
-        .pipe(insert.prepend('<apex:component >\n'))
-        .pipe(insert.append('</apex:component>'))
-        .pipe(rename('AgentFullSearch.component'))
-        .pipe(gulp.dest('./bin/sfdc/components'))
-        .pipe(livereload());
-    gulp.src(['./views/partials/agentbox-searchInterface.ejs'])
-        .pipe(ejs({}, {ext:'.html'}).on('error', gutil.log))
-        .pipe(insert.prepend('<apex:component >\n'))
-        .pipe(insert.append('</apex:component>'))
-        .pipe(rename('AgentBox.component'))
-        .pipe(gulp.dest('./bin/sfdc/components'))
-        .pipe(livereload());
-});
+gulp.task('sfdc', ['prepareSfdc']);
 
 gulp.task('preparePages', function () {
     gulp.src(['views/pages/*.ejs'])
@@ -42,6 +21,11 @@ gulp.task('preparePages', function () {
         }, {ext:'.html'}))
         .pipe(gulp.dest('./bin'))
         .pipe(livereload());
+});
+
+gulp.task('copyVendor', function (done) {
+  return gulp.src(['./vendor/**/*'])
+    .pipe(gulp.dest('./bin/vendor'));
 });
 
 gulp.task('copyJS', function () {
