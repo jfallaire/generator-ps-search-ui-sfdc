@@ -1,6 +1,6 @@
 {
   "name": "ps-search-ui-sfdc-bundle",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Coveo - PS - JS Search UI SFDC Bundle",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   "devDependencies": {
     "colors": "^1.1.2",
     "event-stream": "^3.3.4",
-    "gulp": "^3.9.1",
+    "gulp": "^3.9.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-streamify": "^1.0.2",
@@ -44,16 +44,26 @@
     "body-parser": "^1.15.2",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
-    "webpack": "^1.14.0",
+    "express-session": "^1.15.2",
+    "webpack": "^2.2.1",
     "webpack-dev-server": "^1.16.2",
-    "webpack-fail-plugin": "^1.0.5",
+    "webpack-fail-plugin": "^1.0.6",
     "expand-brackets": "^2.1.4",
-    "pretty-typescript": "1.13.0",
+    "pretty-typescript": "^1.14.0",
     "merge-stream": "^1.0.1",
-    "ts-loader": "^1.3.3",
-    "typescript": "^1.8.10"
+    "ts-loader": "^2.0.3",
+    "typescript": "2.3.x",
+    "eslint": "^3.1.1",
+    "eslint-config-xo-space": "^0.15.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-line-ending-corrector": "^1.0.1",
+    "gulp-istanbul": "^1.0.0",
+    "gulp-mocha": "^3.0.1",
+    "gulp-plumber": "^1.0.0",
+    "gulp-nsp": "^2.1.0"
   },
   "dependencies": {
-    "coveo-search-ui": "1.x.x"
+    "coveo-search-ui": "2.x.x"
   }
 }

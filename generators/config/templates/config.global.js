@@ -15,48 +15,36 @@ config.coveo = {};
 config.coveo.rest_uri = 'https://platform.cloud.coveo.com/rest/search';
 config.coveo.cloud_platform_host = 'platform.cloud.coveo.com';
 config.coveo.cloud_platform_uri = 'https://cloudplatform.coveo.com/rest';
-config.coveo.ops_identity = { 'name': '<%= authorEmail %>', 'provider': 'Email Security Provider' };
+config.coveo.ops_identity = {
+    'name': '<%= authorEmail %>',
+    'provider': 'Email Security Provider'
+};
 config.coveo.filter = '';
 
 // custom
 config.<%= customerSafeName %> = {};
 config.<%= customerSafeName %>.webpack_config = {};
 
-// webpack config for support bundle -- PHASE 1
-config.<%= customerSafeName %>.webpack_config.support = {
-    entry: ['./src/Index.ts'],
+var commonWebpackConfig = {
+    entry: {
+        // 'Coveo.<%= capitalizeCustomerSafeName %>.Lazy' : ['./src/Lazy.ts'],
+        // 'Coveo.<%= capitalizeCustomerSafeName %>' : ['./src/Eager.ts'],
+        'Coveo.<%= capitalizeCustomerSafeName %>': ['./src/Index.ts']
+    },
     output: {
         path: path.resolve('./bin/js'),
-        filename: minimize ? 'Coveo.<%= capitalizeCustomerSafeName %>.min.js' : 'Coveo.<%= capitalizeCustomerSafeName %>.js',
+        filename: minimize ? '[name].min.js' : '[name].js',
+        chunkFilename: minimize ? '[name].min.js' : '[name].js',
         libraryTarget: 'umd',
+        // See SwapVar.ts as for why this need to be a temporary variable
         library: 'CoveoExtension',
         publicPath: '/js/'
     }
-};
+}
 
-
-// Sample 
-// webpack config for customer bundle -- PHASE 2
-// config.<%= customerSafeName %>.webpack_config.customer = {
-//     entry: ['./src/Index.ts'],
-//     output: {
-//         path: path.resolve('./bin/js'),
-//         filename: minimize ? 'Coveo.<%= capitalizeCustomerSafeName %>.Customer.min.js' : 'Coveo.<%= capitalizeCustomerSafeName %>.Customer.js',
-//         libraryTarget: 'umd',
-//         library: 'CoveoExtension',
-//         publicPath: '/js/'
-//     }
-// };
-
-// Sample
-// webpack config for internal bundle -- PHASE 3
-// config.<%= customerSafeName %>.webpack_config.internal = {
-//     entry: ['./src/Index.ts'],
-//     output: {
-//         path: path.resolve('./bin/js'),
-//         filename: minimize ? 'Coveo.<%= capitalizeCustomerSafeName %>.Internal.min.js' : 'Coveo.<%= capitalizeCustomerSafeName %>.Internal.js',
-//         libraryTarget: 'umd',
-//         library: 'CoveoExtension',
-//         publicPath: '/js/'
-//     }
-// };
+// webpack config for support bundle
+config.<%= customerSafeName %>.webpack_config.support = Object.assign({}, commonWebpackConfig, {
+    output: Object.assign({}, commonWebpackConfig.output, {
+        path: path.resolve('./bin/js') 
+    })
+});

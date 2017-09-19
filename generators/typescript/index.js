@@ -41,10 +41,10 @@ module.exports = class extends Generator {
           templateObj 
         );
 
-        // Initialization
+        // RegisteredNamedMethods
         this.fs.copyTpl(
-          this.templatePath('src/custo/ProjectInitialization.ts'),
-          this.destinationPath(path.join('src', 'custo', templateObj.capitalizeCustomerSafeName + 'Initialization.ts')),
+          this.templatePath('src/custo/ProjectRegisteredNamedMethods.ts'),
+          this.destinationPath(path.join('src', 'custo', templateObj.capitalizeCustomerSafeName + 'RegisteredNamedMethods.ts')),
           templateObj 
         );
 
@@ -52,6 +52,20 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
           this.templatePath('src/Index.ts'),
           this.destinationPath('src/Index.ts'),
+          templateObj 
+        );
+
+        // ProjectCore.ts
+        this.fs.copyTpl(
+          this.templatePath('src/ProjectCore.ts'),
+          this.destinationPath(path.join('src', '', templateObj.capitalizeCustomerSafeName + 'Core.ts')),
+          templateObj 
+        );
+
+        // SwapVar.ts
+        this.fs.copyTpl(
+          this.templatePath('src/SwapVar.ts'),
+          this.destinationPath('src/SwapVar.ts'),
           templateObj 
         );
 

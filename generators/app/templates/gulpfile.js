@@ -22,7 +22,6 @@ const cfg = require('./config');
 const _ = require('underscore');
 
 var bundles = _.map(cfg.<%=customerSafeName%>.webpack_config, (v, k) => k);
-
 var bannerMsg = minimize ? 'Building minified version' : 'Building non minified version';
 
 requireDir('./gulpTasks');

@@ -4,17 +4,13 @@
     "target": "es5",
     "declaration": false,
     "experimentalDecorators": true,
-    "outDir": "./bin"
+    "outDir": "./bin",
+    "sourceMap": true
   },
-  "filesGlob": [
-    "src/**/*.ts"
-  ],
-  "files": [
+  "include": [
+    "node_modules/coveo-search-ui/lib/webpack/index.d.ts",
     "node_modules/coveo-search-ui/bin/ts/CoveoJsSearch.d.ts",
     "node_modules/coveo-search-ui/bin/ts/Externals.d.ts",
-    "src/Index.ts",
-    "src/custo/<%= capitalizeCustomerSafeName %>Initialization.ts",
-    "src/custo/<%= capitalizeCustomerSafeName %>Custo.ts",
-    "src/custo/<%= capitalizeCustomerSafeName %>Helper.ts"
+    "src/**/*.ts"
   ]
 }

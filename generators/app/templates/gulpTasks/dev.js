@@ -30,7 +30,7 @@ gulp.task('dev', ['css', 'setup', 'watch'], function (done){
         console.log( 'Listening on ' + cfg.server_ip_address + ', port ' + cfg.server_port )
     });
 
-    webpackConfig.entry.unshift('webpack-dev-server/client?http://localhost:3001/');
+    webpackConfig.entry['Coveo.<%= capitalizeCustomerSafeName %>'].unshift('webpack-dev-server/client?http://localhost:3001/');
     const compiler = webpack(webpackConfig);
 
     new WebpackDevServer(compiler, {
