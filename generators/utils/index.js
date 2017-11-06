@@ -2,7 +2,6 @@
 const path = require('path');
 const _ = require('lodash');
 const Generator = require('yeoman-generator');
-var mkdirp = require('mkdirp');
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -18,11 +17,11 @@ module.exports = class extends Generator {
     initializing() {
         this.props = {};
         this.props.customerName = this.options.customer;
-        // this.props.customerSafeName = _.snakeCase(this.options.customer);
-        this.props.customerSafeName = _.camelCase(this.options.customer);
+        this.props.customerSafeName = _.snakeCase(this.options.customer);
     }
 
     writing() {
+
         const templateObj = { 
           customerSafeName : this.props.customerSafeName,
           capitalizeCustomerSafeName : this.props.customerSafeName.replace(/\b\w/g, l => l.toUpperCase()),
@@ -30,11 +29,9 @@ module.exports = class extends Generator {
 
         this.fs.copyTpl(
           this.templatePath('**'),
-          this.destinationPath('views'), 
+          this.destinationPath('utils'), 
           templateObj
         );
-
-        mkdirp.sync(this.destinationPath('views/partials'));
-        mkdirp.sync(this.destinationPath('views/pages'));
+        
     }
 }

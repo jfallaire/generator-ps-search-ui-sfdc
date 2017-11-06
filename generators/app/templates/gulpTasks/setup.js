@@ -17,7 +17,9 @@ gulp.task('preparePages', function () {
     gulp.src(['views/pages/*.ejs'])
         .pipe(ejs({ 
           prototypeTitle : '<%= capitalizeCustomerSafeName %> Search Prototype',
-          config: cfg
+          config: cfg,
+          token: '',
+          userInfos: {}
         }, {ext:'.html'}))
         .pipe(gulp.dest('./bin'))
         .pipe(livereload());

@@ -72,15 +72,7 @@ export class <%= capitalizeCustomerSafeName %>Custo {
    */
   private handleAfterComponentsInit() {
     this.searchInterface = <Coveo.SearchInterface>Coveo.Component.get(this.rootElement.el, Coveo.SearchInterface);
-    this.rootElement.on(Coveo.SettingsEvents.settingsPopulateMenu, (e: Event, args: Coveo.ISettingsPopulateMenuArgs) => {
-      args.menuData.push({
-        className: 'tableau-training-link',
-        text: Coveo.l('TableauTrainingDoc'),
-        onOpen: () => { window.open('https://mytableau.tableaucorp.com/x/SeMoBg', '_blank'); },
-        onClose: () => { }
-      });
-    });
-
+    
     Coveo.TemplateHelpers.registerTemplateHelper('from<%= capitalizeCustomerSafeName %>TypeToIcon', (result: Coveo.IQueryResult, options: I<%= capitalizeCustomerSafeName %>IconOptions) => {
       return <%= capitalizeCustomerSafeName %>Helper.from<%= capitalizeCustomerSafeName %>TypeToIcon(result, options);
     });
@@ -112,7 +104,7 @@ export class <%= capitalizeCustomerSafeName %>Custo {
   private handleQuerySuccess(evt: Event, args: Coveo.IQuerySuccessEventArgs) { }
 
   /**
-   * Initialized Custom Strings for Tableau
+   * Initialized Custom Strings
    */
   public initStrings() {
     // Custom variable for current application
