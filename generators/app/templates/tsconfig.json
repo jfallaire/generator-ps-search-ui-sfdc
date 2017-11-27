@@ -4,7 +4,7 @@
     "target": "es5",
     "declaration": false,
     "experimentalDecorators": true,
-    "outDir": "./bin",
+    "outDir": "./public",
     "sourceMap": true
   },
   "include": [

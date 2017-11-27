@@ -5,13 +5,14 @@ const path = require('path');
 config.env = 'development';
 config.enableImpersonateUser = false;
 config.hostname = 'dev.example.com';
-config.server_port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+config.server_port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000;
 config.server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 config.iow_path = '';
 
 // coveo
 config.coveo = {};
+config.coveo.cdn = 'https://static.cloud.coveo.com/searchui/v2.2900/'
 config.coveo.rest_uri = 'https://platform.cloud.coveo.com/rest/search';
 config.coveo.cloud_platform_host = 'platform.cloud.coveo.com';
 config.coveo.cloud_platform_uri = 'https://cloudplatform.coveo.com/rest';
@@ -25,6 +26,25 @@ config.coveo.filter = '';
 config.<%= customerSafeName %> = {};
 config.<%= customerSafeName %>.webpack_config = {};
 
+// Authentication
+config.auth = {};
+// OKTA Authentication configurations
+config.auth.okta = {
+    path: '/auth/okta',
+    entryPoint : 'https://yourOktaEntryPointPath/sso/saml',
+    cert : 'YourOktaCertificate',
+    issuers : {
+        devLocal: 'http://localhost:3000',
+        azure: 'https://your-azure-app.azurewebsites.net'
+    }
+};
+// Google Authentication configurations
+config.auth.google = {
+    clientID: 'YourGoogleClientID',
+    clientSecret: 'YourGoogleClientSecret',
+    callbackURL: '/auth/google/callback',
+};
+
 var commonWebpackConfig = {
     entry: {
         // 'Coveo.<%= capitalizeCustomerSafeName %>.Lazy' : ['./src/Lazy.ts'],
@@ -32,7 +52,7 @@ var commonWebpackConfig = {
         'Coveo.<%= capitalizeCustomerSafeName %>': ['./src/Index.ts']
     },
     output: {
-        path: path.resolve('./bin/js'),
+        path: path.resolve('./public/js'),
         filename: minimize ? '[name].min.js' : '[name].js',
         chunkFilename: minimize ? '[name].min.js' : '[name].js',
         libraryTarget: 'umd',
@@ -45,6 +65,6 @@ var commonWebpackConfig = {
 // webpack config for support bundle
 config.<%= customerSafeName %>.webpack_config.support = Object.assign({}, commonWebpackConfig, {
     output: Object.assign({}, commonWebpackConfig.output, {
-        path: path.resolve('./bin/js') 
+        path: path.resolve('./public/js') 
     })
 });

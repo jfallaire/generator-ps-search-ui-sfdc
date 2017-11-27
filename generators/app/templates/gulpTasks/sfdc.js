@@ -19,8 +19,8 @@ gulp.task('deploySfdc', ['deploy-staticresources', 'deploy-staticresources-unpac
 // PREPARE
 
 gulp.task('prepareSfdcResourceBundles', function (done) {
-  return gulp.src(['!./bin/vendor/coveo/**/*', '!./bin/image/**/*', './bin/**/*.Custom.*', './bin/**/*.<%= capitalizeCustomerSafeName %>.*'])
-    .pipe(gulp.dest('./bin/sfdc/staticresources'));
+  return gulp.src(['!./public/vendor/coveo/**/*', '!./public/image/**/*', './public/**/*.Custom.*', './public/**/*.<%= capitalizeCustomerSafeName %>.*'])
+    .pipe(gulp.dest('./public/sfdc/staticresources'));
 });
 
 gulp.task('prepareSfdcVfComponents', function () {
@@ -31,7 +31,7 @@ gulp.task('prepareSfdcVfComponents', function () {
     }, {
       ext: '.component'
     }).on('error', gutil.log))
-    .pipe(gulp.dest('./bin/sfdc/components'))
+    .pipe(gulp.dest('./public/sfdc/components'))
     .pipe(livereload());
 });
 
@@ -43,7 +43,7 @@ gulp.task('prepareSfdcVfPages', function () {
     }, {
       ext: '.page'
     }).on('error', gutil.log))
-    .pipe(gulp.dest('./bin/sfdc/pages'))
+    .pipe(gulp.dest('./public/sfdc/pages'))
     .pipe(livereload());
 });
 
@@ -53,7 +53,7 @@ gulp.task('prepareSfdcLightningComponents', function () {
       prototypeTitle: '<%= capitalizeCustomerSafeName %> SFDC Lightning Components',
       config: cfg
     }).on('error', gutil.log))
-    .pipe(gulp.dest('./bin/sfdc/aura'))
+    .pipe(gulp.dest('./public/sfdc/aura'))
     .pipe(livereload());
 });
 
@@ -63,52 +63,52 @@ gulp.task('prepareSfdcClasses', function () {
       prototypeTitle: '<%= capitalizeCustomerSafeName %> SFDC Classes',
       config: cfg
     }).on('error', gutil.log))
-    .pipe(gulp.dest('./bin/sfdc/classes'))
+    .pipe(gulp.dest('./public/sfdc/classes'))
     .pipe(livereload());
 });
 
 // BUNDLE
 
 gulp.task('zip-staticresources', function (done) {
-  return gulp.src(['./bin/sfdc/staticresources/**/*'])
+  return gulp.src(['./public/sfdc/staticresources/**/*'])
     .pipe(zip('sfdc-bundle.zip'))
     .pipe(rename('<%= capitalizeCustomerSafeName %>_Coveo_UI.resource'))
-    .pipe(gulp.dest('./bin/sfdc/bundle/zip/'));
+    .pipe(gulp.dest('./public/sfdc/bundle/zip/'));
 });
 
 // DEPLOY
 
 gulp.task('deploy-staticresources', function (done) {
-  return gulp.src('./bin/sfdc/bundle/zip/<%= capitalizeCustomerSafeName %>_Coveo_UI.resource')
+  return gulp.src('./public/sfdc/bundle/zip/<%= capitalizeCustomerSafeName %>_Coveo_UI.resource')
     .pipe(gulp.dest('../Salesforce/dev_org/src/staticresources/'));
 });
 
 gulp.task('deploy-staticresources-unpackaged', function (done) {
-  return gulp.src('./bin/sfdc/bundle/zip/<%= capitalizeCustomerSafeName %>_Coveo_UI.resource')
+  return gulp.src('./public/sfdc/bundle/zip/<%= capitalizeCustomerSafeName %>_Coveo_UI.resource')
     .pipe(gulp.dest('../Salesforce/dev_org/src/unpackaged/staticresources/'));
 });
 
 gulp.task('deploy-staticresources-bundles', function (done) {
-  return gulp.src(['./bin/sfdc/staticresources/**/*'])
+  return gulp.src(['./public/sfdc/staticresources/**/*'])
     .pipe(gulp.dest('../Salesforce/dev_org/resource-bundles/<%= capitalizeCustomerSafeName %>_Coveo_UI.resource/'));
 });
 
 gulp.task('deploy-vfcomponents', function (done) {
-  return gulp.src('./bin/sfdc/components/*')
+  return gulp.src('./public/sfdc/components/*')
     .pipe(gulp.dest('../Salesforce/dev_org/src/unpackaged/components/'));
 });
 
 gulp.task('deploy-vfpages', function (done) {
-  return gulp.src('./bin/sfdc/pages/*')
+  return gulp.src('./public/sfdc/pages/*')
     .pipe(gulp.dest('../Salesforce/dev_org/src/unpackaged/pages/'));
 });
 
 gulp.task('deploy-lightningcomponents', function (done) {
-  return gulp.src('./bin/sfdc/aura/**/*')
+  return gulp.src('./public/sfdc/aura/**/*')
     .pipe(gulp.dest('../Salesforce/dev_org/src/unpackaged/aura/'));
 });
 
 gulp.task('deploy-classes', function (done) {
-  return gulp.src('./bin/sfdc/classes/*')
+  return gulp.src('./public/sfdc/classes/*')
     .pipe(gulp.dest('../Salesforce/dev_org/src/unpackaged/classes/'));
 });

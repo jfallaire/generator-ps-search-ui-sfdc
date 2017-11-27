@@ -2,11 +2,10 @@
   "name": "ps-search-ui-sfdc-bundle",
   "version": "2.0.0",
   "description": "Coveo - PS - JS Search UI SFDC Bundle",
-  "main": "index.js",
-  "scripts": {
-    "build": "gulp",
-    "dev": "gulp dev"
+  "engines": {
+    "node": "6.10.0"
   },
+  "main": "server.js",
   "keywords": [
     "coveo",
     "search",
@@ -16,6 +15,22 @@
     "sfdc",
     "bundle"
   ],
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "cookie-parser": "^1.4.3",
+    "coveo-search-ui": "2.x.x",
+    "detect-browser": "^1.10.0",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "express-session": "^1.15.2",
+    "method-override": "^2.3.9",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-saml": "^0.30.0",
+    "underscore": "^1.8.3",
+    "vhost": "^3.0.2"
+  },
   "devDependencies": {
     "colors": "^1.1.2",
     "event-stream": "^3.3.4",
@@ -40,14 +55,8 @@
     "gulp-unzip": "^0.2.0",
     "require-dir": "^0.3.1",
     "run-sequence": "^1.2.2",
-    "underscore": "^1.8.3",
-    "body-parser": "^1.15.2",
-    "ejs": "^2.5.5",
-    "express": "^4.14.0",
-    "express-session": "^1.15.2",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^1.16.2",
-    "webpack-fail-plugin": "^1.0.6",
     "expand-brackets": "^2.1.4",
     "pretty-typescript": "^1.14.0",
     "merge-stream": "^1.0.1",
@@ -61,9 +70,19 @@
     "gulp-istanbul": "^1.0.0",
     "gulp-mocha": "^3.0.1",
     "gulp-plumber": "^1.0.0",
-    "gulp-nsp": "^2.1.0"
+    "gulp-nsp": "^2.1.0",
+    "gulp-coveralls": "^0.1.0"
   },
-  "dependencies": {
-    "coveo-search-ui": "2.x.x"
+  "scripts": {
+    "build": "gulp",
+    "dev": "gulp dev",
+    "start": "node server.js",
+    "test": "gulp"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "mocha": true
+    }
   }
 }

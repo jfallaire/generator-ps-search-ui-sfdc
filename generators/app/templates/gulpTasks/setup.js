@@ -21,30 +21,29 @@ gulp.task('preparePages', function () {
           token: '',
           userInfos: {}
         }, {ext:'.html'}))
-        .pipe(gulp.dest('./bin'))
+        .pipe(gulp.dest('./public'))
         .pipe(livereload());
 });
 
 gulp.task('copyVendor', function (done) {
   return gulp.src(['./vendor/**/*'])
-    .pipe(gulp.dest('./bin/vendor'));
+    .pipe(gulp.dest('./public/vendor'));
 });
 
 gulp.task('copyJS', function () {
   gulp.src([
-      './node_modules/coveo-search-ui/bin/js/CoveoJsSearch*',
-      './node_modules/coveo-search-ui/bin/js/templates/templates*',
+    './node_modules/coveo-search-ui/bin/js/**/*',
       './vendor/coveo/resources/js/components.js',
       './vendor/coveo/Box/js/templates/box.new.templates.js',
       './vendor/coveo/Box/js/*.js'
-    ]).pipe(gulp.dest('./bin/js'))
+    ]).pipe(gulp.dest('./public/js'))
 });
 
 gulp.task('copyCSS', function () {
   gulp.src([
     './node_modules/coveo-search-ui/bin/css/*.css',
     './vendor/coveo/Box/css/*.css'
-  ]).pipe(gulp.dest('./bin/css'))
+  ]).pipe(gulp.dest('./public/css'))
 });
 
 gulp.task('copyFonts', function () {
@@ -55,5 +54,5 @@ gulp.task('copyFonts', function () {
 
 gulp.task('copyImage', function () {
   gulp.src('./node_modules/coveo-search-ui/bin/image/*')
-      .pipe(gulp.dest('./bin/image'))
+      .pipe(gulp.dest('./public/image'))
 });

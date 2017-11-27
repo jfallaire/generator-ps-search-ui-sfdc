@@ -1,3 +1,5 @@
+
+
 'use strict';
 const path = require('path');
 const Generator = require('yeoman-generator');
@@ -102,13 +104,22 @@ module.exports = class extends Generator {
         extend(pkg, {
             dependencies: templatePkg.dependencies,
             devDependencies: templatePkg.devDependencies,
-            keywords: templatePkg.keywords
+            keywords: templatePkg.keywords,
+            main: templatePkg.main,
+            engines: templatePkg.engines,
+            eslintConfig: templatePkg.eslintConfig
         });
 
         // overwrite default scripts by template ones
         pkg.scripts = templatePkg.scripts
 
         this.fs.writeJSON(this.destinationPath('package.json'), pkg);
+
+        // Copy all dotfiles
+        this.fs.copyTpl(
+            this.templatePath('.*'),
+            this.destinationRoot()
+        );
 
         // gulp tasks
         this.fs.copyTpl(
@@ -131,10 +142,36 @@ module.exports = class extends Generator {
             templateObj
         );
 
-        // auth
+        // passports.js
         this.fs.copyTpl(
-            this.templatePath('auth.js'),
-            this.destinationPath('auth.js'),
+            this.templatePath('passports.js'),
+            this.destinationPath('passports.js'),
+            templateObj
+        );
+
+        // middleware.js
+        this.fs.copyTpl(
+            this.templatePath('middleware.js'),
+            this.destinationPath('middleware.js'),
+            templateObj
+        );
+        // server.js
+        this.fs.copyTpl(
+            this.templatePath('server.js'),
+            this.destinationPath('server.js'),
+            templateObj
+        );
+
+        // below files are required for azure deployment
+        // TODO: add options in yeoman to prompt question if this project will be deployed to azure or not  
+        this.fs.copyTpl(
+            this.templatePath('web.config'),
+            this.destinationPath('web.config'),
+            templateObj
+        );
+        this.fs.copyTpl(
+            this.templatePath('iisnode.yml'),
+            this.destinationPath('iisnode.yml'),
             templateObj
         );
     }

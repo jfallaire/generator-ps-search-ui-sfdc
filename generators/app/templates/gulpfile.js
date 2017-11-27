@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 
-process.env.NODE_ENV = gutil.env.config || 'development';
+process.env.COVEO_ENV = gutil.env.config || 'development';
 process.env.CUSTOM_BUNDLE = gutil.env.bundle || 'support';
 process.env.IMPERSONATE_USER = gutil.env.impersonateUser || '';
 process.env.ADDITIONAL_USER = gutil.env.additionalUser || '';

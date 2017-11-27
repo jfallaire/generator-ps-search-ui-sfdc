@@ -1,30 +1,45 @@
 'use strict';
-var express = require('express');
-var fs = require('fs');
-var https = require('https');
-var bodyParser = require('body-parser');
-var request = require('request');
-var server = express();
-var cfg = require('../config');
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var webpackConfig = require('../webpack.config.js');
-var gulp = require('gulp');
-var path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const compression = require('compression');
+const methodOverride = require('method-override');
+const cookieParser = require('cookie-parser');
+const server = express();
+const cfg = require('../config');
+const passport = require('../passports');
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+const webpackConfig = require('../webpack.config.js');
+const gulp = require('gulp');
+const path = require('path');
 
 gulp.task('dev', ['css', 'setup', 'watch'], function (done){
     // set the view engine to ejs
     server.set('view engine', 'ejs');
 
-    server.use(express.static(path.resolve('./bin')));
+
     if(cfg.iow_path){
         server.use('/iow', express.static(path.resolve(cfg.iow_path)));
     }
-    server.use(express.static(path.resolve('./bin')));
+
+    server.use(compression());
+    server.use(methodOverride());
+    server.use(cookieParser());
+    server.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: false, cookie: { maxAge: 3600*1000 } }));
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
 
-    server.use(require('../routes/pages'));
+    server.use(passport.initialize());
+    server.use(passport.session());
+
+    server.use(express.static(path.resolve('./public')));
+    server.use(require(path.resolve('./routes/authentication')));
+    server.use(require(path.resolve('./routes/errors')));
+
+    // passport.protected middleware can be used to protect/secure your routes
+    //server.use('/', passport.protected);
+    server.use(require(path.resolve('./routes/pages')));
     
     server.listen(cfg.server_port, cfg.server_ip_address, function () {
         console.log( 'Listening on ' + cfg.server_ip_address + ', port ' + cfg.server_port )
@@ -36,7 +51,7 @@ gulp.task('dev', ['css', 'setup', 'watch'], function (done){
     new WebpackDevServer(compiler, {
         hot:true,
         historyApiFallback: true,
-        contentBase: 'bin/',
+        contentBase: 'public/',
         publicPath: '/js/',
         compress: true,
         proxy: {

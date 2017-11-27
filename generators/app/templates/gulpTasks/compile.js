@@ -9,7 +9,7 @@ const cfg = require('../config');
 var compileAllTasks = [];
 _.each(cfg.<%= customerSafeName %>.webpack_config, (wc, key) => {
   var tasks = [
-    (isWindows ? 'set ' : '') + 'NODE_ENV=' + process.env.NODE_ENV,
+    (isWindows ? 'set ' : '') + 'COVEO_ENV=' + process.env.COVEO_ENV,
     (isWindows ? 'set ' : '') + 'CUSTOM_BUNDLE=' + key,
     'node node_modules/webpack/bin/webpack.js'
   ]
@@ -17,8 +17,8 @@ _.each(cfg.<%= customerSafeName %>.webpack_config, (wc, key) => {
 });
 
 gulp.task('compile', ['addEolDependencies'], shell.task([
-  // NODE_ENV=production sets an environement variable that will allow other tasks to know when we are building for production.
-  (isWindows ? 'set ' : '') + 'NODE_ENV=' + process.env.NODE_ENV, 
+  // COVEO_ENV=production sets an environement variable that will allow other tasks to know when we are building for production.
+  (isWindows ? 'set ' : '') + 'COVEO_ENV=' + process.env.COVEO_ENV, 
   (isWindows ? 'set ' : '') + 'CUSTOM_BUNDLE=' + process.env.CUSTOM_BUNDLE, 
   'node node_modules/webpack/bin/webpack.js'
 ].join((isWindows ? '&&' : ' && '))));

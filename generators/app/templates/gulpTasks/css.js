@@ -8,7 +8,7 @@ gulp.task('css', ['build-css']);
 gulp.task('prepareSass', function () {
   return event_stream.merge(
       gulp.src('./sass/**/*')
-          .pipe(gulp.dest('./bin/sass/'))
+          .pipe(gulp.dest('./public/sass/'))
     ).pipe(event_stream.wait())
 });
 
@@ -18,5 +18,5 @@ gulp.task('build-css', function (done){
   .pipe(rename(function (path){
     path.basename += '.<%= capitalizeCustomerSafeName %>';
   }))
-  .pipe(gulp.dest('./bin/css'));
+  .pipe(gulp.dest('./public/css'));
 });

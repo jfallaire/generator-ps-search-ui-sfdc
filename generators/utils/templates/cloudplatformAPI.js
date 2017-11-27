@@ -52,16 +52,6 @@ module.exports = {
 
             request.write(JSON.stringify(postData));
             request.end();
-            // request(options, function (error, response, body){
-            //     if (!error && response.statusCode == 200) {
-            //         console.log(body);
-            //         res.send(JSON.parse(body).token);
-            //     } else {
-            //         console.log(response.statusCode);
-            //         console.log(error);
-            //         res.send(JSON.parse(body));
-            //     }
-            // });
         });
         
     }
