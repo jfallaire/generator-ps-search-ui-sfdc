@@ -4,11 +4,11 @@ var router = express.Router();
 var cfg = require('../config');
 
 // Error handling routes
-router.get('/403', function(req, res) {
+router.get('/403', (req, res) =>  {
     res.send('403 forbidden');
 });
 
-router.get('/401', function(req, res) {
+router.get('/401', (req, res) =>  {
     res.send('401 unauthorized');
 });
 
