@@ -5,6 +5,11 @@ var cfg = require('../config');
 const passport = require('../passports');
 const middleware = require('../middleware');
 
+router.use((req, res, next)=>{
+    req.filter = cfg.coveo.filter;
+    next();    
+});
+
 router.get('/', (req, res) => {
     res.redirect('/agent-full-search');
 });

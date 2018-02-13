@@ -3,7 +3,6 @@ const replace = require('gulp-replace');
 const rename = require('gulp-rename');
 const insert  = require('gulp-insert');
 const ejs = require('gulp-ejs');
-const gutil = require('gulp-util');
 const livereload = require('gulp-livereload');
 const cfg = require('../config');
 

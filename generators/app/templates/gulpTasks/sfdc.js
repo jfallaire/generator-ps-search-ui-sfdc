@@ -5,7 +5,7 @@ const replace = require('gulp-replace');
 const rename = require('gulp-rename');
 const insert = require('gulp-insert');
 const ejs = require('gulp-ejs');
-const gutil = require('gulp-util');
+const log = require('fancy-log');
 const livereload = require('gulp-livereload');
 const runsequence = require('run-sequence');
 const cfg = require('../config');
@@ -30,7 +30,7 @@ gulp.task('prepareSfdcVfComponents', function () {
       config: cfg
     }, {
       ext: '.component'
-    }).on('error', gutil.log))
+    }).on('error', log))
     .pipe(gulp.dest('./public/sfdc/components'))
     .pipe(livereload());
 });
@@ -42,7 +42,7 @@ gulp.task('prepareSfdcVfPages', function () {
       config: cfg
     }, {
       ext: '.page'
-    }).on('error', gutil.log))
+    }).on('error', log))
     .pipe(gulp.dest('./public/sfdc/pages'))
     .pipe(livereload());
 });
@@ -52,7 +52,7 @@ gulp.task('prepareSfdcLightningComponents', function () {
     .pipe(ejs({
       prototypeTitle: '<%= capitalizeCustomerSafeName %> SFDC Lightning Components',
       config: cfg
-    }).on('error', gutil.log))
+    }).on('error', log))
     .pipe(gulp.dest('./public/sfdc/aura'))
     .pipe(livereload());
 });
@@ -62,7 +62,7 @@ gulp.task('prepareSfdcClasses', function () {
     .pipe(ejs({
       prototypeTitle: '<%= capitalizeCustomerSafeName %> SFDC Classes',
       config: cfg
-    }).on('error', gutil.log))
+    }).on('error', log))
     .pipe(gulp.dest('./public/sfdc/classes'))
     .pipe(livereload());
 });

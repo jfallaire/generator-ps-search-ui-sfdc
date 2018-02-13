@@ -8,6 +8,30 @@ This project is meant to display a working starting point for a SFDC project tha
 
 All resources will be available under `./bin` folder.
 
+## Docker
+We have setup a docker workflow with Nginx, Node.js and Redis. We are running Redis and node application independently as we want to have the ability to scale the node application dynamically using docker-compose command. If you decide to scale up your node service, Nginx-proxy server will adapt and will load balanced your node instances dynamically.
+
+![Docker Architecture](https://cl.ly/3h1N3C372A3Z/download/Image%202018-02-12%20at%202.21.31%20PM.png) 
+
+### Build the app
+    
+    docker build --rm -f node.dockerfile -t <%- repoName %>:latest .
+
+### Create and start containers
+
+    docker-compose up -d --build --remove-orphans --scale node=3
+
+Nginx service will dynamically setup a load balancer between the given number of node services you want to scale. This example will load balance 3 node services and all of them are linked to one Redis service (storing sessions)
+
+### Create a local copy of <%- repoName %> docker image
+
+    docker save <%- repoName %> > <%- repoName %>.tar
+
+If we want to load that Docker container from the archive tar file : 
+
+    docker load --input <%- repoName %>.tar
+
+
 ## Important gulp tasks
 * `gulp default` -> Build the whole project (CSS, templates, TypeScript, etc.) and generate its output in the `./bin` folder.
 * `gulp build` -> same as default

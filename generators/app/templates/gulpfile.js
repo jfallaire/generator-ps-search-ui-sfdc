@@ -1,11 +1,11 @@
 const gulp = require('gulp');
-const gutil = require('gulp-util');
+const argv = require('minimist')(process.argv.slice(2))
 
-process.env.COVEO_ENV = gutil.env.config || 'development';
-process.env.CUSTOM_BUNDLE = gutil.env.bundle || 'support';
-process.env.IMPERSONATE_USER = gutil.env.impersonateUser || '';
-process.env.ADDITIONAL_USER = gutil.env.additionalUser || '';
-process.env.FILTER_EXPRESSION = gutil.env.filterExpression || '';
+process.env.COVEO_ENV = argv.config || 'development';
+process.env.CUSTOM_BUNDLE = argv.bundle || 'support';
+process.env.IMPERSONATE_USER = argv.impersonateUser || '';
+process.env.ADDITIONAL_USER = argv.additionalUser || '';
+process.env.FILTER_EXPRESSION = argv.filterExpression || '';
 
 const rename = require('gulp-rename');
 const requireDir = require('require-dir');

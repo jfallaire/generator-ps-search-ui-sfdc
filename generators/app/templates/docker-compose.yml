@@ -1,0 +1,48 @@
+version: '3'
+services:
+  portainer:
+    image: portainer/portainer:latest
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9000:9000
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    container_name: <%- repoName %>-nginx-proxy
+    restart : always
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    links:
+      - node
+    environment:
+      DEFAULT_HOST: <%- repoName %>-app.local
+    networks:
+      - front-tier
+    ports:
+      - 80:80
+  redis:
+    image: redis
+    container_name: <%- repoName %>-redis
+    restart : always
+    networks:
+      back-tier:
+        aliases:
+          - redis-server
+  node:
+    image: <%- repoName %>:latest
+    container_name: <%- repoName %>-node
+    environment:
+      COVEO_ENV: development
+      NODE_ENV: production
+      VIRTUAL_HOST: <%- repoName %>-app.local
+    ports:
+      - 3000
+    links:
+      - redis
+    networks:
+      - front-tier
+      - back-tier
+networks:
+  front-tier:
+  back-tier:

@@ -75,6 +75,11 @@ module.exports = class extends Generator {
           this.destinationPath('src/events/CustomEvents.ts')
         );
 
+        this.fs.copy(
+          this.templatePath('src/utils/**/*'),
+          this.destinationPath('src/utils')
+        );
+
         mkdirp.sync(this.destinationPath('src/ui'));
         
     }
