@@ -31,12 +31,14 @@ const middleware = {
                     next();
                 })
                 .catch((err) => {
-                    console.error(err);
-                    res.send('Error: unable to generate a valid Search token with the following users >>> ' + JSON.stringify(users));
+                    next(err);
                 });
         }
     },
-
+    errorHandling : (err, req, res, next) => {
+        console.error(err);
+        res.status(err.statusCode || err.status || 500).send(err);
+    },
     resetToken : (req, res, next) => {
         req.session.tokens = {};
         next();

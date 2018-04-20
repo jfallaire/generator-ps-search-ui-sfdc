@@ -8,11 +8,13 @@ const cookieParser = require('cookie-parser');
 const server = express();
 const cfg = require('../config');
 const passport = require('../passports');
+const middleware = require('../middleware');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('../webpack.config.js');
 const gulp = require('gulp');
 const path = require('path');
+const routesUtils = require('../utils/routesUtils');
 
 gulp.task('dev', ['css', 'setup', 'watch'], function (done){
     // set the view engine to ejs
@@ -40,9 +42,19 @@ gulp.task('dev', ['css', 'setup', 'watch'], function (done){
     // passport.protected middleware can be used to protect/secure your routes
     //server.use('/', passport.protected);
     server.use(require(path.resolve('./routes/pages')));
+    server.use(middleware.errorHandling);
+
+    // Adding default route (if not already defined) to list all routes 
+    if(!routesUtils.hasDefaultRoute(server._router.stack)){
+        server.get('/', (req, res) => { 
+            res.write(routesUtils.allRoutesToHTML(server._router.stack)); 
+            res.end();
+        });
+    }
     
     server.listen(cfg.server_port, cfg.server_ip_address, function () {
-        console.log( 'Listening on ' + cfg.server_ip_address + ', port ' + cfg.server_port )
+        console.log( 'Listening on ' + cfg.server_ip_address + ', port ' + cfg.server_port );
+        routesUtils.printRoutes(server._router.stack);
     });
 
     webpackConfig.entry['Coveo.<%= capitalizeCustomerSafeName %>'].unshift('webpack-dev-server/client?http://localhost:3001/');

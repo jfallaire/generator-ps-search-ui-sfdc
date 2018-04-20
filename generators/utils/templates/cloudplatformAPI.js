@@ -13,8 +13,9 @@ module.exports = {
         const postData = {
             userIds: userids,
             filter: filter || '',
-            searchHub: searchHub || 'pilot'
         };
+
+        if(searchHub) { postData.searchHub = searchHub; }
 
         const options = {
             method: 'POST',
@@ -36,7 +37,7 @@ module.exports = {
                 console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
                 // handle http errors
                 if (res.statusCode < 200 || res.statusCode > 299) {
-                    reject(new Error('Failed to load page, status code: ' + res.statusCode));
+                    reject({statusCode: res.statusCode, message:res.statusMessage});
                 }
                 // temporary data holder
                 const body = [];
@@ -48,10 +49,20 @@ module.exports = {
                 
             });
             // handle connection errors of the request
-            request.on('error', (err) => reject(err));
+            request.on('error', (err) => reject({statusCode: '', message:err}));
 
             request.write(JSON.stringify(postData));
             request.end();
+            // request(options, function (error, response, body){
+            //     if (!error && response.statusCode == 200) {
+            //         console.log(body);
+            //         res.send(JSON.parse(body).token);
+            //     } else {
+            //         console.log(response.statusCode);
+            //         console.log(error);
+            //         res.send(JSON.parse(body));
+            //     }
+            // });
         });
         
     }

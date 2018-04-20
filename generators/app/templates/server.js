@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const cfg = require('./config');
 const passport = require('./passports');
+const middleware = require('./middleware');
 const path = require('path');
 const redis = require('redis');
 const connectRedis = require('connect-redis');
@@ -73,6 +74,7 @@ app.use(require('./routes/errors'));
 
 // app.use('/', passport.protected);
 app.use(require('./routes/pages'));
+app.use(middleware.errorHandling);
 
 var server = app.listen(cfg.server_port, function (){
     var host = server.address().address;

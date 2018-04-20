@@ -31,6 +31,7 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "cli-table": "^0.3.1",
     "colors": "^1.1.2",
     "coveo-search-ui": "2.x.x",
     "eslint": "^3.1.1",
