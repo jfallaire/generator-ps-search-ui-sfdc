@@ -23,78 +23,69 @@
 Scaffolds out a complete generator directory structure for you:
 
 ```
-|-- <CustomerName>-search-ui
-    |-- .editorconfig
-    |-- .gitattributes
-    |-- .gitignore
-    |-- .travis.yml
-    |-- LICENSE
-    |-- README.md
-    |-- gulpfile.js
-    |-- package.json
-    |-- tsconfig.json
-    |-- webpack.config.js
-    |-- config
-    |   |-- config.development.js
-    |   |-- config.global.js
-    |   |-- config.production.js
-    |   |-- index.js
-    |-- gulpTasks
-    |   |-- compile.js
-    |   |-- css.js
-    |   |-- dev.js
-    |   |-- prettify.js
-    |   |-- setup.js
-    |-- sass
-    |   |-- AgentBox.scss
-    |   |-- AgentFullSearch.scss
-    |   |-- CommunityFullSearch.scss
-    |-- src
-    |   |-- Index.ts
-    |   |-- custo
-    |   |   |-- <CustomerName>Custo.ts
-    |   |   |-- <CustomerName>Helper.ts
-    |   |   |-- <CustomerName>Initialization.ts
-    |   |-- events
-    |   |   |-- CustomEvents.ts
-    |   |-- ui
-    |-- vendor
-    |   |-- coveo
-    |   |   |-- Box
-    |   |   |   |-- css
-    |   |   |   |   |-- CoveoBoxNew.css
-    |   |   |   |-- js
-    |   |   |       |-- CoveoJsSearch_Box.d.ts
-    |   |   |       |-- CoveoJsSearch_Box.js
-    |   |   |       |-- templates
-    |   |   |           |-- All.js
-    |   |   |           |-- Chatter.js
-    |   |   |           |-- Dropbox.js
-    |   |   |           |-- Email.js
-    |   |   |           |-- GoogleDrive.js
-    |   |   |           |-- Jira.js
-    |   |   |           |-- Lithium.js
-    |   |   |           |-- People.js
-    |   |   |           |-- Salesforce.js
-    |   |   |           |-- SharePoint.js
-    |   |   |           |-- YouTube.js
-    |   |   |           |-- box.new.templates.js
-    |   |   |-- resources
-    |   |       |-- css
-    |   |       |-- gulpTasks
-    |   |       |-- img
-    |   |       |-- js
-    |   |-- coveo-ps
-    |       |-- CoveoPSComponents.Custom.js
-    |       |-- CoveoPSComponents.Custom.js.map
-    |-- views
-        |-- pages
-        |   |-- agent-box.ejs
-        |   |-- agent-full-search.ejs
-        |   |-- community-search.ejs
-        |-- partials
-        |-- templates
-
+<CustomerName>-search-ui
+├── LICENSE
+├── README.md
+├── config
+│   ├── config.development.js
+│   ├── config.global.js
+│   ├── config.production.js
+│   ├── config.uat.js
+│   └── index.js
+├── gulpTasks
+│   ├── compile.js
+│   ├── css.js
+│   ├── dev.js
+│   ├── prettify.js
+│   ├── setup.js
+│   └── sfdc.js
+├── gulpfile.js
+├── iisnode.yml
+├── middleware.js
+├── package.json
+├── passports.js
+├── public
+│   ├── css
+│   ├── image
+│   ├── js
+│   └── vendor
+├── routes
+│   ├── authentication.js
+│   ├── errors.js
+│   └── pages.js
+├── sass
+│   ├── AgentBox.scss
+│   ├── PilotSearch.scss
+│   └── ui
+├── server.js
+├── sfdc
+│   ├── aura
+│   ├── components
+│   └── pages
+├── src
+│   ├── Index.ts
+│   ├── SwapVar.ts
+│   ├── <CustomerName>Core.ts
+│   ├── custo
+│   ├── events
+│   ├── ui
+│   └── utils
+├── tsconfig.json
+├── utils
+│   ├── cloudplatformAPI.js
+│   ├── routesUtils.js
+│   └── sessionUtils.js
+├── vendor
+│   ├── coveo
+│   ├── coveo-lightning
+│   ├── coveo-ps
+│   ├── salesforce
+│   └── salesforce-ux
+├── views
+│   ├── pages
+│   └── partials
+├── web.config
+└── webpack.config.js
 ```
 
 Refer to [our documentation](http://yeoman.io/authoring/) to learn more about creating a Yeoman generator.

@@ -27,6 +27,9 @@
     "sfdc",
     "bundle"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "jfallaire",
   "license": "Apache-2.0",
   "homepage": "https://github.com/jfallaire/generator-ps-search-ui-sfdc#readme",
