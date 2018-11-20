@@ -8,20 +8,20 @@ const cfg = require('../config');
 
 gulp.task('setup', ['preparePages', 'copy']);
 
-gulp.task('copy', ['copyVendor', 'copyJS', 'copyCSS', 'copyFonts', 'copyImage']);
+gulp.task('copy', ['copyVendor', 'copyJS', 'copyCSS', 'copyFonts', 'copyImage', 'copyCultures']);
 
 gulp.task('sfdc', ['prepareSfdc']);
 
 gulp.task('preparePages', function () {
-    gulp.src(['views/pages/*.ejs'])
-        .pipe(ejs({ 
-          prototypeTitle : '<%= capitalizeCustomerSafeName %> Search Prototype',
-          config: cfg,
-          token: '',
-          userInfos: {}
-        }, {ext:'.html'}))
-        .pipe(gulp.dest('./public'))
-        .pipe(livereload());
+    // gulp.src(['views/pages/*.ejs'])
+    //     .pipe(ejs({ 
+    //       prototypeTitle : '<%= capitalizeCustomerSafeName %> Search Prototype',
+    //       config: cfg,
+    //       token: '',
+    //       userInfos: {}
+    //     }, {ext:'.html'}))
+    //     .pipe(gulp.dest('./public'))
+    //     .pipe(livereload());
 });
 
 gulp.task('copyVendor', function (done) {
@@ -49,6 +49,16 @@ gulp.task('copyFonts', function () {
   /*gulp.src([
     './vendor/project/fonts/*.*',
   ]).pipe(gulp.dest('./bin/fonts'))*/
+});
+
+gulp.task('copyCultures', function () {
+  gulp.src([
+    './src/cultures/*.js',
+  ]).pipe(gulp.dest('./public/js/cultures/custom'))
+});
+gulp.task('copyImage', function () {
+  gulp.src('./node_modules/coveo-search-ui/bin/image/*')
+      .pipe(gulp.dest('./public/image'))
 });
 
 gulp.task('copyImage', function () {

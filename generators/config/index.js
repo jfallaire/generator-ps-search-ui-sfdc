@@ -2,6 +2,7 @@
 const path = require('path');
 const _ = require('lodash');
 const Generator = require('yeoman-generator');
+const utils = require('../../utils');
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -26,14 +27,31 @@ module.exports = class extends Generator {
 
         this.log('writing: ' + this.options.customer);
 
+        
+        let tagNameParts = this.props.coveo_latest_tag_name.split('.');
+        if(tagNameParts[0] != '2'){
+            this.log('***WARNING***: this project generator does not support the current Coveo latest version : ' +  this.props.coveo_latest_tag_name);
+        }
+
         this.fs.copyTpl(
           this.templatePath('**'),
           this.destinationPath('config'), 
           { 
             customerSafeName : this.props.customerSafeName,
             capitalizeCustomerSafeName : this.props.customerSafeName.replace(/\b\w/g, l => l.toUpperCase()),
-            authorEmail : authorEmail
+            authorEmail : authorEmail,
+            coveoSearchUIVersion: `${tagNameParts[0]}.${tagNameParts[1]}`
           }
         );
+    }
+
+    getCoveoLatestVersion() {
+
+        return utils.getNpmLatestVersion('coveo-search-ui').then((res) => {
+            this.log('latest release info >>> ' + res.stdout);
+            this.props.coveo_latest_tag_name = res.stdout;
+        }, (err) => {
+            this.log('something went wrong >>> ' + err);
+        });
     }
 }

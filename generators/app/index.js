@@ -23,12 +23,14 @@ module.exports = class extends Generator {
             'Welcome to the fabulous ' + chalk.red('ps-search-ui-sfdc') + ' generator!'
         ));
 
-        var prompts = [{
-            type: 'input',
-            name: 'customer',
-            message: 'Your customer(project) name?',
-            default: path.basename(process.cwd())
-        }];
+        var prompts = [
+            {
+                type: 'input',
+                name: 'customer',
+                message: 'Your customer(project) name?',
+                default: path.basename(process.cwd())
+            }
+        ];
 
         return this.prompt(prompts).then(function (props) {
             this.props = props;
@@ -196,11 +198,11 @@ module.exports = class extends Generator {
 
     }
 
-    method1() {
-        this.log('method 1 just ran');
-    }
+    // method1() {
+    //     this.log('method 1 just ran');
+    // }
 
-    method2() {
-        this.log('method 2 just ran');
-    }
+    // method2() {
+    //     this.log('method 2 just ran');
+    // }
 };

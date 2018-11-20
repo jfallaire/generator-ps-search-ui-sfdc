@@ -7,19 +7,16 @@ const _ = require('underscore');
 const cfg = require('../config');
 
 var compileAllTasks = [];
-_.each(cfg.<%= customerSafeName %>.webpack_config, (wc, key) => {
-  var tasks = [
-    (isWindows ? 'set ' : '') + 'COVEO_ENV=' + process.env.COVEO_ENV,
-    (isWindows ? 'set ' : '') + 'CUSTOM_BUNDLE=' + key,
-    'node node_modules/webpack/bin/webpack.js'
-  ]
-  compileAllTasks.push(tasks.join((isWindows ? '&&' : ' && ')));
-});
+var tasks = [
+  (isWindows ? 'set ' : '') + 'COVEO_ENV=' + process.env.COVEO_ENV,
+  'node node_modules/webpack/bin/webpack.js'
+]
+compileAllTasks.push(tasks.join((isWindows ? '&&' : ' && ')));
+
 
 gulp.task('compile', ['addEolDependencies'], shell.task([
   // COVEO_ENV=production sets an environement variable that will allow other tasks to know when we are building for production.
   (isWindows ? 'set ' : '') + 'COVEO_ENV=' + process.env.COVEO_ENV, 
-  (isWindows ? 'set ' : '') + 'CUSTOM_BUNDLE=' + process.env.CUSTOM_BUNDLE, 
   'node node_modules/webpack/bin/webpack.js'
 ].join((isWindows ? '&&' : ' && '))));
 

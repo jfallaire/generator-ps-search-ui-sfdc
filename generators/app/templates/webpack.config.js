@@ -22,4 +22,4 @@ var commonConfig = {
   bail: true
 };
 
-module.exports = Object.assign({}, commonConfig, cfg.<%= customerSafeName %>.webpack_config[process.env.CUSTOM_BUNDLE]);
+module.exports = Object.assign({}, commonConfig, cfg.<%= customerSafeName %>.webpack_config);

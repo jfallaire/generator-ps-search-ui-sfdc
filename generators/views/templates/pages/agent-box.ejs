@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <title>Agent Box</title>    
     <script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="js/CoveoJsSearch.js"></script>
-    <script src="js/components.js"></script>
+    <script src="<%%=config.coveo.cdn%>/js/CoveoJsSearch.js"></script>
+    <!--<script src="<%%=config.coveo.cdn%>/js/templates/templatesNew.js"></script>-->
+
     <script src="js/CoveoJsSearch_Box.js"></script>
     <script src="js/Coveo.<%= capitalizeCustomerSafeName %>.js"></script>
     <script src="js/box.new.templates.js"></script>
+    
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/CoveoFullSearchNewDesign.css" />
+    <link rel="stylesheet" href="<%%=config.coveo.cdn%>/css/CoveoFullSearchNewDesign.css" />
     <link rel="stylesheet" href="css/CoveoBoxNew.css" />
     <link rel="stylesheet" href="css/AgentBox.<%= capitalizeCustomerSafeName %>.css" />
 
@@ -20,7 +22,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             Coveo.SearchEndpoint.configureSampleEndpointV2();
-            Coveo.init<%= capitalizeCustomerSafeName %>AgentBoxCusto(document.getElementById('search'), {});
+            Coveo.initAgentBox(document.getElementById('search'), {});
         });
     </script>
 </head>

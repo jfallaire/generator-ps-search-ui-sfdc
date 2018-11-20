@@ -1,175 +1,87 @@
 import $$ = Coveo.$$;
+import Component = Coveo.Component;
+import Initialization = Coveo.Initialization;
+import ComponentOptions = Coveo.ComponentOptions;
+import IComponentBindings = Coveo.IComponentBindings;
 import IBuildingQueryEventArgs = Coveo.IBuildingQueryEventArgs;
 import IDoneBuildingQueryEventArgs = Coveo.IDoneBuildingQueryEventArgs;
 import IPreprocessResultsEventArgs = Coveo.IPreprocessResultsEventArgs;
 import INewQueryEventArgs = Coveo.INewQueryEventArgs;
 import IAttributeChangedEventArg = Coveo.IAttributeChangedEventArg;
-import { <%= capitalizeCustomerSafeName %>Helper, I<%= capitalizeCustomerSafeName %>IconOptions } from './<%= capitalizeCustomerSafeName %>Helper';
+import { <%= capitalizeCustomerSafeName %>Helper } from './<%= capitalizeCustomerSafeName %>Helper';
+import { UrlUtils } from '../utils/UrlUtils';
 import IStringMap = Coveo.IStringMap;
+
 declare var String: { toLocaleString: (param: any) => void; };
 
+export interface I<%= capitalizeCustomerSafeName %>Options {
+}
+
 /**
- * Required customization specifically applied for Tableau's implementation
+ * Required customization specifically applied for your implementation
  */
-export class <%= capitalizeCustomerSafeName %>Custo {
+export class <%= capitalizeCustomerSafeName %>Custo extends Component {
 
-  private searchInterface: Coveo.SearchInterface;
-  private rootElement: Coveo.Dom;
+  static ID = '<%= capitalizeCustomerSafeName %>Custo';
+  static options: I<%= capitalizeCustomerSafeName %>Options = {};
 
-  constructor(public searchInterfaceElement: HTMLElement) {
+  constructor(public element: HTMLElement, public options: I<%= capitalizeCustomerSafeName %>Options, public bindings?: IComponentBindings) {
 
-    this.rootElement = $$(searchInterfaceElement);
-
-    // let changeTabEvtName = Coveo.QueryStateModel.eventTypes.changeOne + Coveo.QueryStateModel.attributesEnum.t;
-    let changeFacetSourceEvtNames = [
-      this.getStateEventName(Coveo.QueryStateModel.eventTypes.changeOne + 'f:allSource'),
-      this.getStateEventName(Coveo.QueryStateModel.eventTypes.changeOne + 'f:coreSource')
-
-    ];
-
-    let changeAllFacetsEvtNames = _.map(this.rootElement.findAll('.CoveoFacet'), (el) => {
-      return this.getStateEventName(Coveo.QueryStateModel.eventTypes.changeOne + 'f:' + el.dataset['id']);
-    });
+    super(element, <%= capitalizeCustomerSafeName %>Custo.ID, bindings);
+    this.options = ComponentOptions.initComponentOptions(element, <%= capitalizeCustomerSafeName %>Custo, options);
 
     // Initialization Events
-    this.rootElement.on(Coveo.InitializationEvents.beforeInitialization, () => this.handleBeforeInit());
-    this.rootElement.on(Coveo.InitializationEvents.afterInitialization, () => this.handleAfterInit());
-    this.rootElement.on(Coveo.InitializationEvents.afterComponentsInitialization, () => this.handleAfterComponentsInit());
+    this.bind.onRootElement(Coveo.InitializationEvents.beforeInitialization, this.handleBeforeInit);
+    this.bind.onRootElement(Coveo.InitializationEvents.afterComponentsInitialization, this.handleAfterComponentsInit);
+    this.bind.onRootElement(Coveo.InitializationEvents.afterInitialization, this.handleAfterInit);
 
     // Query Events
-    this.rootElement.on(Coveo.QueryEvents.newQuery, (e: Event, data: INewQueryEventArgs) => this.handleNewQuery(e, data));
-    this.rootElement.on(Coveo.QueryEvents.buildingQuery, (e: Event, data: IBuildingQueryEventArgs) => this.handleBuildingQuery(e, data));
-    this.rootElement.on(Coveo.QueryEvents.doneBuildingQuery, (e: Event, data: IDoneBuildingQueryEventArgs) => this.handleDoneBuildingQuery(e, data));
-    this.rootElement.on(Coveo.QueryEvents.preprocessResults, (e: Event, data: IPreprocessResultsEventArgs) => this.handlePreprocessResults(e, data));
-    this.rootElement.on(Coveo.QueryEvents.querySuccess, (e: Event, data: Coveo.IQuerySuccessEventArgs) => this.handleQuerySuccess(e, data));
+    this.bind.onRootElement(Coveo.QueryEvents.newQuery, this.handleNewQuery);
+    this.bind.onRootElement(Coveo.QueryEvents.buildingQuery, this.handleBuildingQuery);
+    this.bind.onRootElement(Coveo.QueryEvents.doneBuildingQuery, this.handleDoneBuildingQuery);
+    this.bind.onRootElement(Coveo.QueryEvents.preprocessResults, this.handlePreprocessResults);
+    this.bind.onRootElement(Coveo.QueryEvents.querySuccess, this.handleQuerySuccess);
 
-    // State Events
-
-    // Custom Events
-    // TODO
-  }
-
-  private getStateEventName(event: string) {
-    return Coveo.QueryStateModel.ID + ':' + event;
   }
 
   /**
    * Before Initialization
    */
-  private handleBeforeInit() {
-  }
-  /**
-   * After Initialization
-   * initializing custom strings during before init event to avoid any issue with SFDC init strings.
-   */
-  private handleAfterInit() {
-    this.initStrings();
-  }
+  private handleBeforeInit() {}
+
   /**
    * After Component Initialization
-   * Adding Setting Menu item for Tableau training link
-   * Registering custom template helper to manage tableau custom icons. see result templates
    */
-  private handleAfterComponentsInit() {
-    this.searchInterface = <Coveo.SearchInterface>Coveo.Component.get(this.rootElement.el, Coveo.SearchInterface);
-    
-    Coveo.TemplateHelpers.registerTemplateHelper('from<%= capitalizeCustomerSafeName %>TypeToIcon', (result: Coveo.IQueryResult, options: I<%= capitalizeCustomerSafeName %>IconOptions) => {
-      return <%= capitalizeCustomerSafeName %>Helper.from<%= capitalizeCustomerSafeName %>TypeToIcon(result, options);
-    });
+  private handleAfterComponentsInit() {}
 
-    Coveo.TemplateHelpers.registerFieldHelper('customDate', (value: any, options: any) => {
-      return <%= capitalizeCustomerSafeName %>Helper.customDate(Coveo.DateUtils.convertFromJsonDateIfNeeded(value));
-    });
+  /**
+   * After Component Initialization
+   */
+  private handleAfterInit() {}
 
-  }
   /**
    * New Query
    */
-  private handleNewQuery(evt: Event, args: INewQueryEventArgs) { }
+  private handleNewQuery(args: INewQueryEventArgs) { }
   /**
    * Building Query
    */
-  private handleBuildingQuery(evt: Event, args: IBuildingQueryEventArgs) { }
+  private handleBuildingQuery(args: IBuildingQueryEventArgs) { }
   /**
    * Done Building Query
    */
-  private handleDoneBuildingQuery(evt: Event, args: IDoneBuildingQueryEventArgs) { }
+  private handleDoneBuildingQuery(args: IDoneBuildingQueryEventArgs) { }
+  
   /**
    * Preprocess Results
    */
-  private handlePreprocessResults(evt: Event, args: IPreprocessResultsEventArgs) { }
+  private handlePreprocessResults(args: IPreprocessResultsEventArgs) { }
   /**
    * Query Success
    */
-  private handleQuerySuccess(evt: Event, args: Coveo.IQuerySuccessEventArgs) { }
-
-  /**
-   * Initialized Custom Strings
-   */
-  public initStrings() {
-    // Custom variable for current application
-    String.toLocaleString({
-      'en': {
-        'ShowingResultsOf': 'Result<pl>s</pl> {0}<pl>-{1}</pl> of about {2}',
-        'RemoveContext': 'Remove Case Filters',
-        'GoToFullSearch': 'Full Search Page'
-      }
-    });
-  }
-
-  /**
-   * Set default options of different UI Components for <%= capitalizeCustomerSafeName %>.
-   */
-  public getDefaultOptions(): any {
-    let defaultOptions: any = {
-      SalesforceResultLink: {
-        alwaysOpenInNewWindow: true
-      },
-      ResultLink: {
-        alwaysOpenInNewWindow: true
-      },
-      Facet: {
-        availableSorts: ['occurrences', 'score', 'alphaAscending', 'alphaDescending'],
-        valueCaption: {
-          'Not Specified': 'Unspecified',
-          'Web Misc.': 'Web (other)'
-        }
-      }
-    };
-    return defaultOptions;
-  }
+  private handleQuerySuccess(args: Coveo.IQuerySuccessEventArgs) { }
 
 };
 
-export function init<%= capitalizeCustomerSafeName %>Custo(element: HTMLElement, options: any = {}, custoOptions: any = {}) {
-  Coveo.Initialization.initializeFramework(element, options, () => {
-    
-    let custo = new <%= capitalizeCustomerSafeName %>Custo(element);
-    custo.initStrings();
-    let customOptions = _.extend({}, custo.getDefaultOptions(), options);
-
-    return Coveo.Initialization.initSearchInterface(element, customOptions);
-
-  });
-}
-
-Coveo.Initialization.registerNamedMethod('init<%= capitalizeCustomerSafeName %>Custo', (element?: HTMLElement, options: any = {}, custoOptions: any = {}) => {
-  init<%= capitalizeCustomerSafeName %>Custo(element, options, custoOptions);
-});
-
-export function init<%= capitalizeCustomerSafeName %>AgentBoxCusto(element: HTMLElement, options: any = {}, custoOptions: any = {}) {
-  Coveo.Initialization.initializeFramework(element, options, () => {
-
-    let custo = new <%= capitalizeCustomerSafeName %>Custo(element);
-    // custo.initStrings();
-    let customOptions = _.extend({}, custo.getDefaultOptions(), options);
-
-    return Coveo.Initialization.initBoxInterface(element, customOptions);
-
-  });
-}
-
-Coveo.Initialization.registerNamedMethod('init<%= capitalizeCustomerSafeName %>AgentBoxCusto', (element?: HTMLElement, options: any = {}) => {
-  init<%= capitalizeCustomerSafeName %>AgentBoxCusto(element, options);
-});
+Initialization.registerAutoCreateComponent(<%= capitalizeCustomerSafeName %>Custo);
 

@@ -1,5 +1,4 @@
-declare function require(module: string);
-declare var String: { toLocaleString: (param: any) => void; };
+
 
 export function renew<%= capitalizeCustomerSafeName %>AccessToken(): Promise<string> {
   let renewTokenPromise = new Promise<string>((resolve, reject) => {

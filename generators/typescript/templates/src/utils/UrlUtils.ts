@@ -26,5 +26,22 @@ export class UrlUtils {
         return params;
       }, {});
   }
-};
 
+  static getLocationFromUri = query => {
+    if (!query) {
+      return {};
+    }
+    var anchor = document.createElement('a');
+    anchor.href = query;
+    var retVal = {
+      href: anchor.href,
+      pathname: anchor.pathname,
+      hostname: anchor.hostname,
+      host: anchor.host,
+      search: anchor.search,
+      protocol: anchor.protocol,
+      hash: anchor.hash
+    };
+    return retVal;
+  }
+};

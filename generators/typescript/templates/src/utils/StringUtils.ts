@@ -4,9 +4,9 @@ declare interface String {
 }
 
 
-String.prototype.getInitials = (glue: boolean = true) => {
+String.prototype.getInitials = function (glue: boolean = true): string | Array<string> {
 
-  let initials = this.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g) || [];
+  var initials = this.replace(/[^a-zA-Z- ]/g, '').match(/\b\w/g) || [];
 
   if (glue) {
     return initials.join('');
@@ -15,7 +15,7 @@ String.prototype.getInitials = (glue: boolean = true) => {
   return initials;
 };
 
-String.prototype.capitalize = function () {
+String.prototype.capitalize = function (): string {
   return this.toLowerCase().replace(/\b\w/g, function (m) {
     return m.toUpperCase();
   });
