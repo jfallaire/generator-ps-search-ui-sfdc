@@ -31,7 +31,7 @@ gulp.task('copyVendor', function (done) {
 
 gulp.task('copyJS', function () {
   gulp.src([
-    './node_modules/coveo-search-ui/bin/js/**/*',
+      // './node_modules/coveo-search-ui/bin/js/**/*',
       './vendor/coveo/resources/js/components.js',
       './vendor/coveo/Box/js/templates/box.new.templates.js',
       './vendor/coveo/Box/js/*.js'
@@ -40,7 +40,7 @@ gulp.task('copyJS', function () {
 
 gulp.task('copyCSS', function () {
   gulp.src([
-    './node_modules/coveo-search-ui/bin/css/*.css',
+    // './node_modules/coveo-search-ui/bin/css/*.css',
     './vendor/coveo/Box/css/*.css'
   ]).pipe(gulp.dest('./public/css'))
 });
@@ -54,13 +54,8 @@ gulp.task('copyFonts', function () {
 gulp.task('copyCultures', function () {
   gulp.src([
     './src/cultures/*.js',
-  ]).pipe(gulp.dest('./public/js/cultures/custom'))
+  ]).pipe(gulp.dest('./public/js/cultures'))
 });
-gulp.task('copyImage', function () {
-  gulp.src('./node_modules/coveo-search-ui/bin/image/*')
-      .pipe(gulp.dest('./public/image'))
-});
-
 gulp.task('copyImage', function () {
   gulp.src('./node_modules/coveo-search-ui/bin/image/*')
       .pipe(gulp.dest('./public/image'))

@@ -80,6 +80,11 @@ module.exports = class extends Generator {
           this.destinationPath('src/utils')
         );
 
+        this.fs.copy(
+          this.templatePath('src/cultures/**/*'),
+          this.destinationPath('src/cultures')
+        );
+
         mkdirp.sync(this.destinationPath('src/ui'));
         
     }
