@@ -85,8 +85,8 @@
     "start": "node server.js",
     "prepare": "npm run build",
     "deploy": "gulp && gulp sfdc && gulp deploySfdc",
-    "redis": "docker run --name <%- repoName %>-redis --rm -it -p 6379:6379 redis",
-    "search": "docker run --name <%- repoName %>-node --rm -it -p 3000:3000 <%- repoName %>"
+    "redis": "docker run --name <%= repoName %>-redis --rm -it -p 6379:6379 redis",
+    "search": "docker run --name <%= repoName %>-node --rm -it -p 3000:3000 <%= repoName %>"
   },
   "eslintConfig": {
     "extends": "xo-space",
