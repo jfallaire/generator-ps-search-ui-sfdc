@@ -30,8 +30,7 @@ gulp.task('prepareSfdc', function () {
   gulp.src(['./sfdc/**/*'])
     .pipe(ejs({
       config: cfg
-    }).on('error', log))
-    .pipe(htmlbeautify())
+    }).on('error', log)) 
     .pipe(gulp.dest('./bin/sfdc/src'))
     .pipe(livereload());
 });
