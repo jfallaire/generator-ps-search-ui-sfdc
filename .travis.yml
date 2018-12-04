@@ -1,9 +1,16 @@
 language: node_js
-deploy:
-  api_key:
-    secure: WD5TE8QTwSS5FTZHwG7ghiefE5F+aWX0Kj9eWztnGL8ffDxnpTUP6hW6pueTrdjdzVcfxOnJZMO27nRqJZQth8iEQD+jwCLao3nm+GhzTwYxvROpWFL4UnBBgcxQkfQWWAlIBLYTtB0LW81ZLBIleVkTnDtITJn3NIHHhYONMWEAXv1bZTxxdhhfdbBFccfEIXzZmRal5ibM37Ygin5Z9Yyi8w7BPg7h4Z79TlLI1edDkva+GDcrCouXtFL9erE9/8PjVBIGhy1G/V0wtYN7wOLn5bkfb/qlDQF3n+KUuNr2NiRLXmFyLCg7E29aL6tPr74gt4eIDzg+ILkygw3NsgiX2CE8ZtVBP6EVGXYcch7oA+mndGAjQuU8ITbM+dkYiIjgyaswUKiVSevJuuvBFA9/czS9yMJ2kS3ubZ6fEfP/uPwQn/Mn/PHpN50KwKNW9hJ0/tuj8RzDqVbEMA7U02TM7jFbZQLg6wDjq1oIemRyqTmRnbMPiKNa/CWeLUdpurnPk0nQF+6HMWw0d5mplWLTMQMeMgoIbbBBb5iufLPx1DSQ7Uyjh5TH9VvUzmrzCh2JU+E+V7GzAXGYqVmQ6n7bgi2ch1IFNX0UZehNCCHFedxztDt938mPPudL8bggl2td1QdlrquOO1fZcNW+GjiXhNUoAUlj9prEsI7POeg=
-  email: jeanfrancois.allaire@gmail.com
-  provider: npm
-  skip_cleanup: true
-  on:
-    tags: true
+cache:
+  directories:
+    - ~/.npm
+notifications:
+  email: false
+node_js:
+  - '10'
+  - '9'
+  - '8'
+  - '6'
+after_success:
+  - npm run travis-deploy-once "npm run semantic-release"
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
