@@ -1,6 +1,10 @@
 {
   "name": "generator-ps-search-ui-sfdc",
+<<<<<<< HEAD
   "version": "0.1.13",
+=======
+  "version": "0.0.0-development",
+>>>>>>> release/november-2018
   "description": "generator to serve CoveoPS folks with a nodejs module as development environment to interact with the Coveo JS Search UI framework",
   "repository": {
     "type": "git",
@@ -44,6 +48,69 @@
     "yosay": "^1.2.1"
   },
   "devDependencies": {
-    "babel-eslint": "^7.1.1"
+    "@semantic-release/changelog": "^3.0.1",
+    "@semantic-release/commit-analyzer": "^6.1.0",
+    "@semantic-release/git": "^7.0.5",
+    "@semantic-release/npm": "^5.1.1",
+    "@semantic-release/release-notes-generator": "^7.1.4",
+    "babel-eslint": "^7.1.1",
+    "commitizen": "^3.0.5",
+    "conventional-recommended-bump": "^4.0.4",
+    "cz-conventional-changelog": "^2.1.0",
+    "semantic-release": "^15.12.4",
+    "semver": "^5.6.0",
+    "standard-version": "^4.4.0",
+    "travis-deploy-once": "^5.0.9"
+  },
+  "scripts": {
+    "commit": "git-cz",
+    "test": "echo 'running test...'",
+    "semantic-release": "semantic-release",
+    "travis-deploy-once": "travis-deploy-once"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "branch": "master",
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "angular",
+          "parserOpts": {
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING CHANGES",
+              "BREAKING"
+            ]
+          }
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "angular",
+          "parserOpts": {
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING CHANGES",
+              "BREAKING"
+            ]
+          },
+          "writerOpts": {
+            "commitsSort": [
+              "subject",
+              "scope"
+            ]
+          }
+        }
+      ],
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ]
   }
 }
