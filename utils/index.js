@@ -2,17 +2,16 @@
 const _ = require('lodash');
 const https = require('https');
 const util = require('util');
-const execFile = util.promisify(require('child_process').execFile);
+const exec = util.promisify(require('child_process').exec);
 
 module.exports = {
-    makeRepoName : (name) => {
+    makeRepoName: (name) => {
         name = _.kebabCase(name);
         name = name.indexOf('-search-ui') > 0 ? name : name + '-search-ui';
         return name;
     },
     getNpmLatestVersion: (repoName) => {
-        return execFile('npm', ['view', repoName, 'version']);
-        
+        return exec(`npm view ${repoName} version`);
     },
     getGithubLatestRelease: (owner, repo) => {
         var options = {
