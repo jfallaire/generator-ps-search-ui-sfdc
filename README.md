@@ -89,3 +89,5 @@ Scaffolds out a complete generator directory structure for you:
 ```
 
 Refer to [our documentation](http://yeoman.io/authoring/) to learn more about creating a Yeoman generator.
+
+add comment
