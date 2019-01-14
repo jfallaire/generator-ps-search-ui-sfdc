@@ -12,16 +12,28 @@ module.exports = class extends Generator {
             required: true,
             desc: 'Customer name'
         });
+
+        this.option('destinationRoot', {
+            type: String,
+            required: true,
+            desc: 'Destination root'
+        });
     }
 
     initializing() {
         this.props = {};
         this.props.customerName = this.options.customer;
+        this.props.destinationRoot = this.options.destinationRoot;
         this.props.customerSafeName = _.snakeCase(this.options.customer);
+
+        if (process.cwd() != this.destinationPath()) {
+          this.log('Running generator from project root: ' + chalk.green(process.cwd()));
+          this.destinationRoot(process.cwd());
+        }
     }
 
     writing() {
-
+        this.destinationRoot(this.props.destinationRoot);
         const templateObj = { 
           customerSafeName : this.props.customerSafeName,
           capitalizeCustomerSafeName : this.props.customerSafeName.replace(/\b\w/g, l => l.toUpperCase()),

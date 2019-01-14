@@ -30,21 +30,6 @@
     "redis": "^2.8.0",
     "underscore": "^1.8.3"
   },
-  "dependencies": {
-    "body-parser": "^1.15.2",
-    "compression": "^1.6.2",
-    "connect-redis": "^3.3.3",
-    "cookie-parser": "^1.4.3",
-    "ejs": "^2.5.5",
-    "express": "^4.14.0",
-    "express-session": "^1.15.2",
-    "method-override": "^2.3.9",
-    "passport": "^0.4.0",
-    "passport-google-oauth20": "^1.0.0",
-    "passport-saml": "^0.30.0",
-    "redis": "^2.8.0",
-    "underscore": "^1.8.3"
-  },
   "devDependencies": {
     "cli-table": "^0.3.1",
     "colors": "^1.1.2",
