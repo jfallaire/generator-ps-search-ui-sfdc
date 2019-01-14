@@ -15,29 +15,37 @@ module.exports = class extends Generator {
 
     initializing() {
         this.props = {};
+        if(this.options.customer){
+            this.props.customer = this.options.customer;
+        }
+        this.props.root = this.options.root || process.cwd();
+    }
+
+    _askFor() {
+        const prompts = [{
+            type: 'input',
+            name: 'customer',
+            message: 'Your customer (project) name?',
+            default: path.basename(process.cwd()),
+            when: !this.props.customer
+        }];
+        return this.prompt(prompts).then(props => {
+            this.props = extend(this.props, props);
+            this.props.repoName = utils.makeRepoName(this.props.customer);
+            this.props.destinationRoot = path.join(this.props.root, this.props.repoName);
+            this.props.customerSafeName = _.camelCase(this.props.customer);
+        });
     }
 
     prompting() {
-        // Have Yeoman greet the user.
-        this.log(yosay(
-            'Welcome to the fabulous ' + chalk.red('ps-search-ui-sfdc') + ' generator!'
-        ));
 
-        var prompts = [
-            {
-                type: 'input',
-                name: 'customer',
-                message: 'Your customer(project) name?',
-                default: path.basename(process.cwd())
-            }
-        ];
-
-        return this.prompt(prompts).then(function (props) {
-            this.props = props;
-            this.props.repoName = utils.makeRepoName(this.props.customer);
-            // this.props.customerSafeName = _.snakeCase(this.props.customer);
-            this.props.customerSafeName = _.camelCase(this.props.customer);
-        }.bind(this));
+        if(!this.props.customer){
+            // Have Yeoman greet the user.
+            this.log(yosay(
+                'Welcome to the fabulous ' + chalk.red('ps-search-ui-sfdc') + ' generator!'
+            ));
+        }
+        return this._askFor();
 
     }
 
@@ -48,8 +56,9 @@ module.exports = class extends Generator {
                 'I\'ll automatically create this folder.'
             );
             mkdirp(this.props.repoName);
-            this.destinationRoot(this.destinationPath(this.props.repoName));
         }
+        this.destinationRoot(this.props.destinationRoot);
+        
         const readmeTpl = _.template(this.fs.read(this.templatePath('README.md')));
         this.composeWith(require.resolve('generator-node/generators/app'), {
             babel: false,
@@ -63,45 +72,53 @@ module.exports = class extends Generator {
         });
 
         this.composeWith(require.resolve('../config'), {
-            customer: this.props.customer
+            customer: this.props.customer,
+            destinationRoot: this.props.destinationRoot
         });
 
         this.composeWith(require.resolve('../typescript'), {
-            customer: this.props.customer
+            customer: this.props.customer,
+            destinationRoot: this.props.destinationRoot
         });
 
         this.composeWith(require.resolve('../sass'), {
-            customer: this.props.customer
+            customer: this.props.customer,
+            destinationRoot: this.props.destinationRoot
         });
 
         this.composeWith(require.resolve('../routes'), {
-            customer: this.props.customer
+            customer: this.props.customer,
+            destinationRoot: this.props.destinationRoot
         });
 
         this.composeWith(require.resolve('../vendor'), {
-            customer: this.props.customer
+            customer: this.props.customer,
+            destinationRoot: this.props.destinationRoot
         });
 
         this.composeWith(require.resolve('../views'), {
-            customer: this.props.customer
+            customer: this.props.customer,
+            destinationRoot: this.props.destinationRoot
         });
 
         this.composeWith(require.resolve('../sfdc'), {
-            customer: this.props.customer
+            customer: this.props.customer,
+            destinationRoot: this.props.destinationRoot
         });
 
         this.composeWith(require.resolve('../utils'), {
-            customer: this.props.customer
+            customer: this.props.customer,
+            destinationRoot: this.props.destinationRoot
         });
     }
 
     writing() {
+        this.destinationRoot(this.props.destinationRoot);
         const pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
         const templatePkg = this.fs.readJSON(this.templatePath('package.json'), {});
-        const templateObj = {
-            customerSafeName: this.props.customerSafeName,
+        const templateObj = extend({}, this.props, {
             capitalizeCustomerSafeName: this.props.customerSafeName.replace(/\b\w/g, l => l.toUpperCase())
-        }
+        });
 
         extend(pkg, {
             dependencies: templatePkg.dependencies,
@@ -116,6 +133,13 @@ module.exports = class extends Generator {
         pkg.scripts = templatePkg.scripts
 
         this.fs.writeJSON(this.destinationPath('package.json'), pkg);
+
+        // make sure template variables are getting replaced.
+        this.fs.copyTpl(
+            this.destinationPath('package.json'),
+            this.destinationPath('package.json'),
+            templateObj
+        )
 
         // Copy all dotfiles
         this.fs.copyTpl(
@@ -191,7 +215,11 @@ module.exports = class extends Generator {
             this.destinationPath('gulpfile.js'),
             templateObj
         );
-        // this.installDependencies({bower: false});
+        // this.installDependencies({
+        //   npm: false,
+        //   bower: false,
+        //   yarn: true
+        // });
     }
 
     end() {

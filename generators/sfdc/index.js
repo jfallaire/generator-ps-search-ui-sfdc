@@ -13,15 +13,23 @@ module.exports = class extends Generator {
             required: true,
             desc: 'Customer name'
         });
+
+        this.option('destinationRoot', {
+            type: String,
+            required: true,
+            desc: 'Destination root'
+        });
     }
 
     initializing() {
         this.props = {};
         this.props.customerName = this.options.customer;
+        this.props.destinationRoot = this.options.destinationRoot;
         this.props.customerSafeName = _.snakeCase(this.options.customer);
     }
 
     writing() {
+        this.destinationRoot(this.props.destinationRoot);
         const templateObj = { 
           customerSafeName : this.props.customerSafeName,
           capitalizeCustomerSafeName : this.props.customerSafeName.replace(/\b\w/g, l => l.toUpperCase()),
@@ -33,8 +41,8 @@ module.exports = class extends Generator {
           templateObj
         );
 
-        mkdirp.sync(this.destinationPath('sfdc/components'));
-        mkdirp.sync(this.destinationPath('sfdc/pages'));
-        mkdirp.sync(this.destinationPath('sfdc/aura'));
+        mkdirp.sync(this.destinationPath(path.join('sfdc', 'components')));
+        mkdirp.sync(this.destinationPath(path.join('sfdc', 'pages')));
+        mkdirp.sync(this.destinationPath(path.join('sfdc', 'aura')));
     }
 }

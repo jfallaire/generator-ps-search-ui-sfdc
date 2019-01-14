@@ -13,17 +13,25 @@ module.exports = class extends Generator {
             required: true,
             desc: 'Customer name'
         });
+
+        this.option('destinationRoot', {
+            type: String,
+            required: true,
+            desc: 'Destination root'
+        });
     }
 
     initializing() {
         this.props = {};
         this.props.customerName = this.options.customer;
+        this.props.destinationRoot = this.options.destinationRoot;
         // this.props.customerSafeName = _.snakeCase(this.options.customer);
         this.props.customerSafeName = _.camelCase(this.options.customer);
     }
 
     writing() {
-        const authorEmail = this.fs.readJSON(this.destinationPath('package.json')).author.email || 'platform@coveo.com';
+        this.destinationRoot(this.props.destinationRoot);
+        const authorEmail = this.fs.readJSON(this.destinationPath('package.json'), {}).author.email || 'platform@coveo.com';
 
         this.log('writing: ' + this.options.customer);
 
