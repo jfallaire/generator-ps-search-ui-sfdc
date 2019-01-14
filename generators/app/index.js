@@ -131,7 +131,6 @@ module.exports = class extends Generator {
 
         // overwrite default scripts by template ones
         pkg.scripts = templatePkg.scripts
-
         this.fs.writeJSON(this.destinationPath('package.json'), pkg);
 
         // make sure template variables are getting replaced.
