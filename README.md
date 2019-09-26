@@ -1,3 +1,7 @@
+
+| WARNING: **Project no longer maintained or used. Please use the generator-ps-boilerplate-project instead.** |
+| --- |
+
 # generator-ps-search-ui-sfdc
 
 [![Build Status](https://travis-ci.org/jfallaire/generator-ps-search-ui-sfdc.svg?branch=master)](https://travis-ci.org/jfallaire/generator-ps-search-ui-sfdc) [![npm version](https://badge.fury.io/js/generator-ps-search-ui-sfdc.svg)](https://badge.fury.io/js/generator-ps-search-ui-sfdc)
